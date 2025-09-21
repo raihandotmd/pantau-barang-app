@@ -45,4 +45,8 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+    public function Store()
+    {
+        return $this->belongsTo(Stores::class, 'store_id');
+    }
 }
