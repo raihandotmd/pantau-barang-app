@@ -21,6 +21,9 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'store_id',
+        'role',
+        'is_super_admin',
     ];
 
     /**
@@ -43,10 +46,39 @@ class User extends Authenticatable
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
+            'is_super_admin' => 'boolean',
         ];
     }
-    public function Store()
+
+    /**
+     * Get the store that owns the user.
+     */
+    public function store()
     {
         return $this->belongsTo(Stores::class, 'store_id');
+    }
+
+    /**
+     * Check if user has a store.
+     */
+    public function hasStore(): bool
+    {
+        return !is_null($this->store_id);
+    }
+
+    /**
+     * Check if user is a store owner.
+     */
+    public function isStoreOwner(): bool
+    {
+        return $this->role === 'owner' && $this->hasStore();
+    }
+
+    /**
+     * Check if user is a super admin.
+     */
+    public function isSuperAdmin(): bool
+    {
+        return $this->is_super_admin;
     }
 }
