@@ -44,7 +44,6 @@ class StoreController extends Controller
                 'contact_info' => $request->contact_info,
                 'address' => $request->address,
                 'description' => $request->description,
-                'plan' => 'free', // Default plan
             ]);
 
             // Update user's store_id

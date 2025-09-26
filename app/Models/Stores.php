@@ -13,7 +13,6 @@ class Stores extends Model
         'address',
         'location_latlong',
         'description',
-        'plan',
     ];
 
     protected $casts = [

@@ -18,7 +18,6 @@ return new class extends Migration {
             $table->string('address')->nullable();
             $table->json('location_latlong')->nullable();
             $table->text('description')->nullable();
-            $table->string('plan')->default('free'); // e.g., free, premium, etc.
             $table->timestamps();
         });
     }

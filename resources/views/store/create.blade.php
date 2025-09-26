@@ -131,10 +131,6 @@
                                 </svg>
                             </div>
                         </div>
-                        <div class="ml-4">
-                            <h4 class="font-semibold text-gray-900">Free Plan</h4>
-                            <p class="text-sm text-gray-600">Start with our free plan</p>
-                        </div>
                     </div>
                 </div>
 

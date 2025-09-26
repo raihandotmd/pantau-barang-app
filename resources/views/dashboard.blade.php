@@ -153,12 +153,6 @@
                                         <p class="text-green-100 text-sm mt-1">📍 {{ Str::limit($store->address, 50) }}</p>
                                     @endif
                                 </div>
-                                <div class="text-right">
-                                    <span
-                                        class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-green-100 text-green-800">
-                                        {{ ucfirst($store->plan) }} Plan
-                                    </span>
-                                </div>
                             </div>
                         </div>
 
