@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\StoreController;
 use Illuminate\Support\Facades\Route;
@@ -21,6 +22,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/store/create', [StoreController::class, 'create'])->name('store.create');
     Route::post('/store', [StoreController::class, 'store'])->name('store.store');
     Route::post('/store/generate-slug', [StoreController::class, 'generateSlug'])->name('store.generate-slug');
+
+    // Category routes
+    Route::resource('categories', CategoryController::class);
 });
 
 require __DIR__ . '/auth.php';

@@ -238,7 +238,7 @@
                             <!-- Quick Actions -->
                             <div class="mt-8">
                                 <h4 class="text-lg font-semibold text-gray-900 mb-4">Quick Actions</h4>
-                                <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
+                                <div class="grid md:grid-cols-2 lg:grid-cols-5 gap-4">
                                     <button
                                         class="flex items-center justify-center px-4 py-3 bg-blue-50 hover:bg-blue-100 text-blue-700 rounded-lg transition-colors duration-200">
                                         <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -248,15 +248,23 @@
                                         Add Item
                                     </button>
 
-                                    <button
+                                    <a href="{{ route('categories.create') }}"
+                                        class="flex items-center justify-center px-4 py-3 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 rounded-lg transition-colors duration-200">
+                                        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path>
+                                        </svg>
+                                        Add Category
+                                    </a>
+
+                                    <a href="{{ route('categories.index') }}"
                                         class="flex items-center justify-center px-4 py-3 bg-green-50 hover:bg-green-100 text-green-700 rounded-lg transition-colors duration-200">
                                         <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                                 d="M7 12l3-3 3 3 4-4M8 21l4-4 4 4M3 4h18M4 4h16v12a1 1 0 01-1 1H5a1 1 0 01-1-1V4z">
                                             </path>
                                         </svg>
-                                        View Inventory
-                                    </button>
+                                        View Categories
+                                    </a>
 
                                     <button
                                         class="flex items-center justify-center px-4 py-3 bg-yellow-50 hover:bg-yellow-100 text-yellow-700 rounded-lg transition-colors duration-200">
