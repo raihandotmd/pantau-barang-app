@@ -5,11 +5,13 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreCategoryRequest;
 use App\Http\Requests\UpdateCategoryRequest;
 use App\Models\Categories;
+use App\Traits\LogsActivity;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class CategoryController extends Controller
 {
+    use LogsActivity;
     /**
      * Display a listing of the categories.
      */
@@ -47,10 +49,13 @@ class CategoryController extends Controller
     public function store(StoreCategoryRequest $request)
     {
         try {
-            Categories::create([
+            $category = Categories::create([
                 'name' => $request->name,
                 'store_id' => Auth::user()->store_id,
             ]);
+
+            // Log activity
+            $this->logActivity('category_created', "Created category: {$category->name}");
 
             return redirect()->route('categories.index')->with('success', 'Category created successfully!');
 
@@ -98,9 +103,13 @@ class CategoryController extends Controller
         }
 
         try {
+            $oldName = $category->name;
             $category->update([
                 'name' => $request->name,
             ]);
+
+            // Log activity
+            $this->logActivity('category_updated', "Updated category: {$oldName} → {$request->name}");
 
             return redirect()->route('categories.index')->with('success', 'Category updated successfully!');
 
@@ -119,13 +128,17 @@ class CategoryController extends Controller
             return redirect()->route('categories.index')->with('error', 'Category not found.');
         }
 
-        // Check if category has items
-        if ($category->items()->count() > 0) {
+        // Check if category has items - use exists() instead of count() for performance
+        if ($category->items()->exists()) {
             return redirect()->route('categories.index')->with('error', 'Cannot delete category that has items.');
         }
 
         try {
+            $categoryName = $category->name;
             $category->delete();
+
+            // Log activity
+            $this->logActivity('category_deleted', "Deleted category: {$categoryName}");
 
             return redirect()->route('categories.index')->with('success', 'Category deleted successfully!');
 

@@ -10,8 +10,15 @@ return Application::configure(basePath: dirname(__DIR__))
         commands: __DIR__.'/../routes/console.php',
         health: '/up',
     )
-    ->withMiddleware(function (Middleware $middleware): void {
-        //
+    ->withMiddleware(function (Middleware $middleware) {
+        // Register middleware aliases
+        $middleware->alias([
+            'has.store' => \App\Http\Middleware\EnsureUserHasStore::class,
+            'verify.store' => \App\Http\Middleware\VerifyStoreOwnership::class,
+        ]);
+        
+        // Add rate limiting to auth routes
+        $middleware->throttleApi();
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         //

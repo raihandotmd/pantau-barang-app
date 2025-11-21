@@ -6,12 +6,19 @@ use Illuminate\Database\Eloquent\Model;
 
 class ActivityLogs extends Model
 {
-    //
-    public function Store()
+    protected $fillable = [
+        'store_id',
+        'user_id',
+        'action',
+        'description',
+    ];
+
+    public function store()
     {
         return $this->belongsTo(Stores::class);
     }
-    public function User()
+
+    public function user()
     {
         return $this->belongsTo(User::class);
     }
