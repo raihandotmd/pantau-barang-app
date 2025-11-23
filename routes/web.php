@@ -23,9 +23,9 @@ Route::middleware(['auth', 'has.store', 'verify.store'])->group(function () {
 
     // Store routes - only need has.store, not verify.store (creating new store)
     Route::middleware(['auth', 'has.store'])->group(function () {
-        Route::get('/store/create', [StoreController::class, 'create'])->name('store.create')->withoutMiddleware('has.store');
-        Route::post('/store', [StoreController::class, 'store'])->name('store.store')->withoutMiddleware('has.store');
-        Route::post('/store/generate-slug', [StoreController::class, 'generateSlug'])->name('store.generate-slug');
+        Route::get('/store/create', [StoreController::class, 'create'])->name('store.create')->withoutMiddleware(['has.store', 'verify.store']);
+        Route::post('/store', [StoreController::class, 'store'])->name('store.store')->withoutMiddleware(['has.store', 'verify.store']);
+        Route::post('/store/generate-slug', [StoreController::class, 'generateSlug'])->name('store.generate-slug')->withoutMiddleware(['has.store', 'verify.store']);
     });
 
     // Category routes
@@ -34,8 +34,22 @@ Route::middleware(['auth', 'has.store', 'verify.store'])->group(function () {
     // Item routes
     Route::resource('items', ItemController::class);
 
+    // Order routes (Admin)
+    Route::get('/orders', [\App\Http\Controllers\Admin\OrderController::class, 'index'])->name('orders.index');
+    Route::get('/orders/{order}', [\App\Http\Controllers\Admin\OrderController::class, 'show'])->name('orders.show');
+    Route::patch('/orders/{order}/status', [\App\Http\Controllers\Admin\OrderController::class, 'updateStatus'])->name('orders.update-status');
+
     // Stock Movement routes
     Route::resource('stock-movements', StockMovementController::class)->only(['index', 'create', 'store', 'show']);
 });
+
+// Frontend Routes (Public)
+Route::get('/catalog', [\App\Http\Controllers\Front\CatalogController::class, 'index'])->name('catalog.index');
+Route::get('/catalog/{item}', [\App\Http\Controllers\Front\CatalogController::class, 'show'])->name('catalog.show');
+
+Route::get('/cart', [\App\Http\Controllers\Front\CheckoutController::class, 'index'])->name('cart.index');
+Route::post('/cart/add/{item}', [\App\Http\Controllers\Front\CheckoutController::class, 'addToCart'])->name('cart.add');
+Route::post('/cart/remove', [\App\Http\Controllers\Front\CheckoutController::class, 'removeFromCart'])->name('cart.remove');
+Route::post('/checkout', [\App\Http\Controllers\Front\CheckoutController::class, 'store'])->name('checkout.store');
 
 require __DIR__ . '/auth.php';

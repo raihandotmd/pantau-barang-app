@@ -14,9 +14,8 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        // Check if user has a store
         if (!Auth::user()->store_id) {
-            return redirect()->route('store.create')->with('error', 'You need to create a store first.');
+            return redirect()->route('store.create');
         }
 
         $storeId = Auth::user()->store_id;
@@ -84,6 +83,30 @@ class DashboardController extends Controller
             ->limit(5)
             ->get();
 
+        // Order Stats
+        $totalOrders = \App\Models\Order::where('store_id', $storeId)->count();
+        $pendingOrders = \App\Models\Order::where('store_id', $storeId)->where('status', 'pending')->count();
+        
+        // Recent Orders
+        $recentOrders = \App\Models\Order::where('store_id', $storeId)
+            ->latest()
+            ->take(5)
+            ->get();
+
+        // Order Locations for Map
+        $orderLocations = \App\Models\Order::where('store_id', $storeId)
+            ->whereNotNull('location')
+            ->get(['id', 'customer_name', 'location', 'status'])
+            ->map(function ($order) {
+                return [
+                    'id' => $order->id,
+                    'name' => $order->customer_name,
+                    'lat' => $order->location->getLatitude(),
+                    'lng' => $order->location->getLongitude(),
+                    'status' => $order->status,
+                ];
+            });
+
         return view('dashboard', compact(
             'totalItems',
             'totalCategories',
@@ -95,7 +118,11 @@ class DashboardController extends Controller
             'recentActivities',
             'stockInLast7Days',
             'stockOutLast7Days',
-            'topCategories'
+            'topCategories',
+            'totalOrders',
+            'pendingOrders',
+            'recentOrders',
+            'orderLocations'
         ));
     }
 }

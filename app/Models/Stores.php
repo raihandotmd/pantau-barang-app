@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Clickbar\Magellan\Data\Geometries\Point;
 use Illuminate\Database\Eloquent\Model;
 
 class Stores extends Model
@@ -12,11 +13,13 @@ class Stores extends Model
         'contact_info',
         'address',
         'location_latlong',
+        'location',
         'description',
     ];
 
     protected $casts = [
         'location_latlong' => 'array',
+        'location' => Point::class,
     ];
 
     /**
