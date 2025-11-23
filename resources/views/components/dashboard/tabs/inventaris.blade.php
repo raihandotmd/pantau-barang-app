@@ -7,10 +7,10 @@
             <p class="text-sm text-gray-500">Kelola stok spareparts</p>
         </div>
         <div class="flex gap-2">
-            <a href="{{ route('items.create') }}" class="bg-indigo-600 text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-indigo-700 flex items-center gap-2">
+            <button x-data="" x-on:click.prevent="$dispatch('open-modal', 'create-item')" class="bg-indigo-600 text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-indigo-700 flex items-center gap-2">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
                 Tambah Produk
-            </a>
+            </button>
         </div>
     </div>
 

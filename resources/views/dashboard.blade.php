@@ -1,14 +1,4 @@
 <x-app-layout>
-    <x-slot name="header">
-        <div class="flex justify-between items-center">
-            <div>
-                <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                    {{ __('Dashboard Penjual') }}
-                </h2>
-                <p class="text-sm text-gray-500">{{ Auth::user()->store->name }}</p>
-            </div>
-        </div>
-    </x-slot>
 
     <div class="py-12" x-data="{ activeTab: 'inventaris' }">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
@@ -89,8 +79,16 @@
     </script>
 
     <!-- Modals -->
-    <x-modal name="create-category" :show="$errors->has('name')" focusable>
+    <x-modal name="create-category" :show="$errors->has('name') && !$errors->has('price')" focusable>
         <x-forms.category-create />
+    </x-modal>
+
+    <x-modal name="create-item" :show="$errors->has('price') || ($errors->has('name') && $errors->has('price')) || $errors->has('code') || $errors->has('quantity')" focusable>
+        <x-forms.item-create :categories="$categories" />
+    </x-modal>
+
+    <x-modal name="create-stock-movement" :show="$errors->has('item_id') || $errors->has('type') || $errors->has('quantity_change') || $errors->has('notes')" focusable>
+        <x-forms.stock-movement-create :items="$allItems" />
     </x-modal>
 
 </x-app-layout>

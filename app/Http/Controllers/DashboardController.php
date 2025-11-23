@@ -124,6 +124,9 @@ class DashboardController extends Controller
             ->orderBy('name')
             ->paginate(10, ['*'], 'categories_page');
 
+        // All items for dropdown (not paginated)
+        $allItems = Items::where('store_id', $storeId)->orderBy('name')->get();
+
         return view('dashboard', compact(
             'totalItems',
             'totalCategories',
@@ -142,7 +145,8 @@ class DashboardController extends Controller
             'orderLocations',
             'totalRevenue',
             'items',
-            'categories'
+            'categories',
+            'allItems'
         ));
     }
 }
