@@ -12,13 +12,11 @@ class Stores extends Model
         'slug',
         'contact_info',
         'address',
-        'location_latlong',
         'location',
         'description',
     ];
 
     protected $casts = [
-        'location_latlong' => 'array',
         'location' => Point::class,
     ];
 

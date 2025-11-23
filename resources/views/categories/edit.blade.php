@@ -68,7 +68,7 @@
 
                         <!-- Action Buttons -->
                         <div class="flex items-center justify-between pt-6 border-t border-gray-200">
-                            <a href="{{ route('categories.index') }}"
+                            <a href="{{ route('dashboard') }}"
                                 class="inline-flex items-center px-6 py-3 bg-gray-500 hover:bg-gray-600 text-white font-semibold rounded-xl transition-all duration-200 transform hover:scale-105">
                                 <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>

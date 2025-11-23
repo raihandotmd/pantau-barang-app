@@ -107,6 +107,23 @@ class DashboardController extends Controller
                 ];
             });
 
+        // Total Revenue (Sum of completed orders)
+        $totalRevenue = \App\Models\Order::where('store_id', $storeId)
+            ->where('status', 'completed')
+            ->sum('total_amount');
+
+        // Items for Inventory Table (Paginated)
+        $items = Items::where('store_id', $storeId)
+            ->with('category')
+            ->orderBy('created_at', 'desc')
+            ->paginate(10);
+
+        // Categories for Category Table (Paginated)
+        $categories = Categories::where('store_id', $storeId)
+            ->withCount('items')
+            ->orderBy('name')
+            ->paginate(10, ['*'], 'categories_page');
+
         return view('dashboard', compact(
             'totalItems',
             'totalCategories',
@@ -122,7 +139,10 @@ class DashboardController extends Controller
             'totalOrders',
             'pendingOrders',
             'recentOrders',
-            'orderLocations'
+            'orderLocations',
+            'totalRevenue',
+            'items',
+            'categories'
         ));
     }
 }

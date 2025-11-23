@@ -171,7 +171,7 @@
 
                         <!-- Submit Buttons -->
                         <div class="flex items-center justify-end space-x-4 mt-8">
-                            <a href="{{ route('stock-movements.index') }}" class="px-6 py-3 bg-gray-300 hover:bg-gray-400 text-gray-700 font-medium rounded-lg transition-colors duration-200">
+                            <a href="{{ route('dashboard') }}" class="px-6 py-3 bg-gray-300 hover:bg-gray-400 text-gray-700 font-medium rounded-lg transition-colors duration-200">
                                 Cancel
                             </a>
                             <button 

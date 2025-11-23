@@ -57,7 +57,7 @@ class CategoryController extends Controller
             // Log activity
             $this->logActivity('category_created', "Created category: {$category->name}");
 
-            return redirect()->route('categories.index')->with('success', 'Category created successfully!');
+            return redirect()->route('dashboard')->with('success', 'Category created successfully!');
 
         } catch (\Exception $e) {
             return back()->withInput()->with('error', 'Failed to create category. Please try again.');
@@ -71,7 +71,7 @@ class CategoryController extends Controller
     {
         // Check if category belongs to user's store
         if ($category->store_id !== Auth::user()->store_id) {
-            return redirect()->route('categories.index')->with('error', 'Category not found.');
+            return redirect()->route('dashboard')->with('error', 'Category not found.');
         }
 
         $category->load('items');
@@ -86,7 +86,7 @@ class CategoryController extends Controller
     {
         // Check if category belongs to user's store
         if ($category->store_id !== Auth::user()->store_id) {
-            return redirect()->route('categories.index')->with('error', 'Category not found.');
+            return redirect()->route('dashboard')->with('error', 'Category not found.');
         }
 
         return view('categories.edit', compact('category'));
@@ -99,7 +99,7 @@ class CategoryController extends Controller
     {
         // Check if category belongs to user's store
         if ($category->store_id !== Auth::user()->store_id) {
-            return redirect()->route('categories.index')->with('error', 'Category not found.');
+            return redirect()->route('dashboard')->with('error', 'Category not found.');
         }
 
         try {
@@ -111,7 +111,7 @@ class CategoryController extends Controller
             // Log activity
             $this->logActivity('category_updated', "Updated category: {$oldName} → {$request->name}");
 
-            return redirect()->route('categories.index')->with('success', 'Category updated successfully!');
+            return redirect()->route('dashboard')->with('success', 'Category updated successfully!');
 
         } catch (\Exception $e) {
             return back()->withInput()->with('error', 'Failed to update category. Please try again.');
@@ -125,12 +125,12 @@ class CategoryController extends Controller
     {
         // Check if category belongs to user's store
         if ($category->store_id !== Auth::user()->store_id) {
-            return redirect()->route('categories.index')->with('error', 'Category not found.');
+            return redirect()->route('dashboard')->with('error', 'Category not found.');
         }
 
         // Check if category has items - use exists() instead of count() for performance
         if ($category->items()->exists()) {
-            return redirect()->route('categories.index')->with('error', 'Cannot delete category that has items.');
+            return redirect()->route('dashboard')->with('error', 'Cannot delete category that has items.');
         }
 
         try {
@@ -140,7 +140,7 @@ class CategoryController extends Controller
             // Log activity
             $this->logActivity('category_deleted', "Deleted category: {$categoryName}");
 
-            return redirect()->route('categories.index')->with('success', 'Category deleted successfully!');
+            return redirect()->route('dashboard')->with('success', 'Category deleted successfully!');
 
         } catch (\Exception $e) {
             return back()->with('error', 'Failed to delete category. Please try again.');

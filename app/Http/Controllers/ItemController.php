@@ -111,7 +111,7 @@ class ItemController extends Controller
 
             DB::commit();
 
-            return redirect()->route('items.index')->with('success', 'Item created successfully!');
+            return redirect()->route('dashboard')->with('success', 'Item created successfully!');
 
         } catch (\Exception $e) {
             DB::rollback();
@@ -126,7 +126,7 @@ class ItemController extends Controller
     {
         // Check if item belongs to user's store
         if ($item->store_id !== Auth::user()->store_id) {
-            return redirect()->route('items.index')->with('error', 'Item not found.');
+            return redirect()->route('dashboard')->with('error', 'Item not found.');
         }
 
         $item->load(['category', 'stockMovements.user']);
@@ -141,7 +141,7 @@ class ItemController extends Controller
     {
         // Check if item belongs to user's store
         if ($item->store_id !== Auth::user()->store_id) {
-            return redirect()->route('items.index')->with('error', 'Item not found.');
+            return redirect()->route('dashboard')->with('error', 'Item not found.');
         }
 
         // Get categories for dropdown
@@ -159,7 +159,7 @@ class ItemController extends Controller
     {
         // Check if item belongs to user's store
         if ($item->store_id !== Auth::user()->store_id) {
-            return redirect()->route('items.index')->with('error', 'Item not found.');
+            return redirect()->route('dashboard')->with('error', 'Item not found.');
         }
 
         try {
@@ -194,7 +194,7 @@ class ItemController extends Controller
 
             DB::commit();
 
-            return redirect()->route('items.index')->with('success', 'Item updated successfully!');
+            return redirect()->route('dashboard')->with('success', 'Item updated successfully!');
 
         } catch (\Exception $e) {
             DB::rollback();
@@ -227,7 +227,7 @@ class ItemController extends Controller
 
             DB::commit();
 
-            return redirect()->route('items.index')->with('success', 'Item deleted successfully!');
+            return redirect()->route('dashboard')->with('success', 'Item deleted successfully!');
 
         } catch (\Exception $e) {
             DB::rollback();

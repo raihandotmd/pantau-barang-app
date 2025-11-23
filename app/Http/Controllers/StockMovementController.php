@@ -116,7 +116,7 @@ class StockMovementController extends Controller
 
             DB::commit();
 
-            return redirect()->route('stock-movements.index')->with('success', 'Stock movement recorded successfully!');
+            return redirect()->route('dashboard')->with('success', 'Stock movement recorded successfully!');
 
         } catch (\Exception $e) {
             DB::rollback();
@@ -131,7 +131,7 @@ class StockMovementController extends Controller
     {
         // Check if movement belongs to user's store
         if ($stockMovement->store_id !== Auth::user()->store_id) {
-            return redirect()->route('stock-movements.index')->with('error', 'Stock movement not found.');
+            return redirect()->route('dashboard')->with('error', 'Stock movement not found.');
         }
 
         $stockMovement->load(['item', 'user']);
