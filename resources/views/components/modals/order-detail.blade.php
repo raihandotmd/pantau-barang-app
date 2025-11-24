@@ -91,7 +91,7 @@
         <div class="p-6" x-show="order">
             <div class="flex justify-between items-start mb-6">
                 <div>
-                    <h3 class="text-lg font-bold text-gray-900">Order Details #<span x-text="order?.id"></span></h3>
+                    <h3 class="text-lg font-bold text-gray-900">Detail Pesanan #<span x-text="order?.id"></span></h3>
                     <p class="text-sm text-gray-500" x-text="order ? formatDate(order.created_at) : ''"></p>
                 </div>
                 <button x-on:click="show = false" class="text-gray-400 hover:text-gray-500">
@@ -105,18 +105,18 @@
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
                 <!-- Info -->
                 <div class="bg-gray-50 p-4 rounded-lg">
-                    <h4 class="text-sm font-medium text-gray-900 mb-3">Customer Information</h4>
+                    <h4 class="text-sm font-medium text-gray-900 mb-3">Informasi Pelanggan</h4>
                     <div class="space-y-2">
                         <div>
-                            <p class="text-xs text-gray-500 uppercase tracking-wider font-semibold">Name</p>
+                            <p class="text-xs text-gray-500 uppercase tracking-wider font-semibold">Nama</p>
                             <p class="text-sm font-medium text-gray-900" x-text="order?.customer_name"></p>
                         </div>
                         <div>
-                            <p class="text-xs text-gray-500 uppercase tracking-wider font-semibold">Phone</p>
+                            <p class="text-xs text-gray-500 uppercase tracking-wider font-semibold">Telepon</p>
                             <p class="text-sm text-gray-900" x-text="order?.customer_phone"></p>
                         </div>
                         <div>
-                            <p class="text-xs text-gray-500 uppercase tracking-wider font-semibold">Address</p>
+                            <p class="text-xs text-gray-500 uppercase tracking-wider font-semibold">Alamat</p>
                             <p class="text-sm text-gray-900" x-text="order?.customer_address || '-'"></p>
                         </div>
                     </div>
@@ -126,7 +126,7 @@
                 <div class="h-48 bg-gray-100 rounded-lg overflow-hidden relative">
                     <div :id="'order-map-' + order?.id" class="h-full w-full z-0"></div>
                     <div x-show="!order?.latitude" class="absolute inset-0 flex items-center justify-center text-gray-500 text-sm">
-                        No location data available
+                        Data lokasi tidak tersedia
                     </div>
                 </div>
             </div>
@@ -137,37 +137,37 @@
                     @csrf
                     @method('PATCH')
                     <div class="flex-1">
-                        <label for="status" class="block text-sm font-medium text-gray-700 mb-1">Update Status</label>
+                        <label for="status" class="block text-sm font-medium text-gray-700 mb-1">Perbarui Status</label>
                         <select name="status" id="status" class="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
-                            <option value="pending" :selected="order?.status === 'pending'">Pending</option>
-                            <option value="accepted" :selected="order?.status === 'accepted'">Accepted</option>
-                            <option value="completed" :selected="order?.status === 'completed'">Completed</option>
-                            <option value="cancelled" :selected="order?.status === 'cancelled'">Cancelled</option>
+                            <option value="pending" :selected="order?.status === 'pending'">Menunggu (Pending)</option>
+                            <option value="accepted" :selected="order?.status === 'accepted'">Diterima (Accepted)</option>
+                            <option value="completed" :selected="order?.status === 'completed'">Selesai (Completed)</option>
+                            <option value="cancelled" :selected="order?.status === 'cancelled'">Dibatalkan (Cancelled)</option>
                         </select>
                     </div>
                     <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
-                        Update
+                        Perbarui
                     </button>
                 </form>
             </div>
 
             <!-- Order Items -->
             <div class="mb-6">
-                <h4 class="text-sm font-medium text-gray-900 mb-3">Items Ordered</h4>
+                <h4 class="text-sm font-medium text-gray-900 mb-3">Barang Dipesan</h4>
                 <div class="border rounded-lg overflow-hidden">
                     <table class="min-w-full divide-y divide-gray-200">
                         <thead class="bg-gray-50">
                             <tr>
-                                <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">Item</th>
-                                <th class="px-4 py-2 text-right text-xs font-medium text-gray-500 uppercase">Qty</th>
-                                <th class="px-4 py-2 text-right text-xs font-medium text-gray-500 uppercase">Price</th>
+                                <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">Barang</th>
+                                <th class="px-4 py-2 text-right text-xs font-medium text-gray-500 uppercase">Jml</th>
+                                <th class="px-4 py-2 text-right text-xs font-medium text-gray-500 uppercase">Harga</th>
                                 <th class="px-4 py-2 text-right text-xs font-medium text-gray-500 uppercase">Total</th>
                             </tr>
                         </thead>
                         <tbody class="bg-white divide-y divide-gray-200">
                             <template x-for="item in order?.items" :key="item.id">
                                 <tr>
-                                    <td class="px-4 py-2 text-sm text-gray-900" x-text="item.item?.name || 'Unknown Item'"></td>
+                                    <td class="px-4 py-2 text-sm text-gray-900" x-text="item.item?.name || 'Barang Tidak Diketahui'"></td>
                                     <td class="px-4 py-2 text-sm text-gray-900 text-right" x-text="item.quantity"></td>
                                     <td class="px-4 py-2 text-sm text-gray-900 text-right">Rp <span x-text="formatPrice(item.price)"></span></td>
                                     <td class="px-4 py-2 text-sm text-gray-900 text-right font-medium">Rp <span x-text="formatPrice(item.price * item.quantity)"></span></td>
@@ -176,7 +176,7 @@
                         </tbody>
                         <tfoot class="bg-gray-50">
                             <tr>
-                                <td colspan="3" class="px-4 py-3 text-sm font-bold text-gray-900 text-right">Total Amount</td>
+                                <td colspan="3" class="px-4 py-3 text-sm font-bold text-gray-900 text-right">Total Harga</td>
                                 <td class="px-4 py-3 text-sm font-bold text-gray-900 text-right">Rp <span x-text="order ? formatPrice(order.total_amount) : 0"></span></td>
                             </tr>
                         </tfoot>
@@ -187,7 +187,7 @@
             <!-- Actions -->
             <div class="flex justify-end gap-3 pt-4 border-t border-gray-200">
                 <button x-on:click="show = false" class="px-4 py-2 bg-white border border-gray-300 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-50">
-                    Close
+                    Tutup
                 </button>
             </div>
         </div>

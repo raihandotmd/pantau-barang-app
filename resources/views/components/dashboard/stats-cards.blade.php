@@ -33,7 +33,7 @@
     <!-- Revenue -->
     <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-100">
         <div class="flex justify-between items-start mb-4">
-            <span class="text-gray-500 font-medium">Revenue</span>
+            <span class="text-gray-500 font-medium">Pendapatan</span>
             <svg class="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg>
         </div>
         <div class="text-2xl font-bold text-green-600 mb-1">Rp {{ number_format($totalRevenue, 0, ',', '.') }}</div>
