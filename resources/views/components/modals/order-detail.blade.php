@@ -95,9 +95,7 @@
                     <p class="text-sm text-gray-500" x-text="order ? formatDate(order.created_at) : ''"></p>
                 </div>
                 <button x-on:click="show = false" class="text-gray-400 hover:text-gray-500">
-                    <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-                    </svg>
+                    <span class="text-2xl">&times;</span>
                 </button>
             </div>
 

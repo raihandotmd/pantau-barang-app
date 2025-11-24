@@ -3,14 +3,7 @@
 <div class="p-6">
     <div class="mb-5">
         <div class="flex items-center">
-            <div class="flex-shrink-0">
-                <div class="w-10 h-10 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full flex items-center justify-center">
-                    <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path>
-                    </svg>
-                </div>
-            </div>
-            <div class="ml-3">
+            <div>
                 <h3 class="text-lg font-semibold text-gray-900">Tambah Barang Baru</h3>
                 <p class="text-sm text-gray-500">Isi detail untuk menambahkan barang ke toko Anda</p>
             </div>
