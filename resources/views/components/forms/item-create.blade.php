@@ -10,7 +10,7 @@
         </div>
     </div>
 
-    <form method="POST" action="{{ route('items.store') }}" class="space-y-4">
+    <form method="POST" action="{{ route('items.store') }}" class="space-y-4" enctype="multipart/form-data">
         @csrf
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -76,6 +76,15 @@
                     <button type="button" x-on:click="$dispatch('close'); setTimeout(() => $dispatch('open-modal', 'create-category'), 300)" class="text-blue-600 hover:text-blue-800 underline">Buat kategori dulu</button>
                 </p>
             @endif
+        </div>
+
+        <!-- Image -->
+        <div>
+            <x-input-label for="image" :value="__('Gambar Barang (Opsional)')" />
+            <input id="image" type="file" name="image" accept="image/*"
+                class="block mt-1 w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100" />
+            <x-input-error :messages="$errors->get('image')" class="mt-1" />
+            <p class="text-xs text-gray-500 mt-1">Format: JPG, PNG, GIF. Maks: 2MB.</p>
         </div>
 
         <!-- Description -->

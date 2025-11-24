@@ -84,6 +84,12 @@ class ItemController extends Controller
         try {
             DB::beginTransaction();
 
+            // Handle image upload
+            $imagePath = null;
+            if ($request->hasFile('image')) {
+                $imagePath = $request->file('image')->store('items', 'public');
+            }
+
             // Create the item
             $item = Items::create([
                 'name' => $request->name,
@@ -93,6 +99,7 @@ class ItemController extends Controller
                 'quantity' => $request->quantity,
                 'store_id' => Auth::user()->store_id,
                 'category_id' => $request->category_id,
+                'image' => $imagePath,
             ]);
 
             // Create initial stock movement if quantity > 0
@@ -167,6 +174,16 @@ class ItemController extends Controller
 
             $oldQuantity = $item->quantity;
 
+            // Handle image upload
+            if ($request->hasFile('image')) {
+                // Delete old image if exists
+                if ($item->image) {
+                    \Illuminate\Support\Facades\Storage::disk('public')->delete($item->image);
+                }
+                $imagePath = $request->file('image')->store('items', 'public');
+                $item->image = $imagePath;
+            }
+
             // Update the item
             $item->update([
                 'name' => $request->name,
@@ -175,6 +192,7 @@ class ItemController extends Controller
                 'price' => $request->price,
                 'quantity' => $request->quantity,
                 'category_id' => $request->category_id,
+                'image' => $item->image, // Ensure image is updated if changed
             ]);
 
             // Create stock movement if quantity changed

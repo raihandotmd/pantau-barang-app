@@ -15,7 +15,7 @@ x-on:open-modal.window="if ($event.detail.name === 'edit-item') { item = $event.
 >
     <div class="p-6">
         <h2 class="text-lg font-medium text-gray-900 mb-4">Edit Barang</h2>
-        <form x-bind:action="action" method="POST" class="space-y-6" x-show="item">
+        <form x-bind:action="action" method="POST" class="space-y-6" x-show="item" enctype="multipart/form-data">
         @csrf
         @method('PUT')
 
@@ -63,6 +63,21 @@ x-on:open-modal.window="if ($event.detail.name === 'edit-item') { item = $event.
                 @endforeach
             </select>
             <x-input-error :messages="$errors->get('category_id')" class="mt-2" />
+        </div>
+
+        <!-- Image -->
+        <div>
+            <x-input-label for="edit_image" :value="__('Gambar Barang (Opsional)')" />
+            
+            <!-- Current Image Preview -->
+            <div x-show="item.image" class="mb-2">
+                <img :src="'/storage/' + item.image" alt="Current Image" class="h-20 w-20 object-cover rounded-md border border-gray-200">
+            </div>
+
+            <input id="edit_image" type="file" name="image" accept="image/*"
+                class="block mt-1 w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100" />
+            <x-input-error :messages="$errors->get('image')" class="mt-2" />
+            <p class="text-xs text-gray-500 mt-1">Biarkan kosong jika tidak ingin mengubah gambar.</p>
         </div>
 
         <!-- Description -->

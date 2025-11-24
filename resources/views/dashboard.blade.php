@@ -111,5 +111,6 @@
     </x-modal>
 
     <x-modals.order-detail name="order-detail" />
+    <x-modals.item-detail name="item-detail" />
 
 </x-app-layout>

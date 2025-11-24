@@ -14,6 +14,7 @@ class Items extends Model
         'quantity',
         'store_id',
         'category_id',
+        'image',
     ];
 
     protected $casts = [
