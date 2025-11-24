@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\DB;
 
 class DashboardController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         if (!Auth::user()->store_id) {
             return redirect()->route('store.create');
@@ -88,10 +88,24 @@ class DashboardController extends Controller
         $pendingOrders = \App\Models\Order::where('store_id', $storeId)->where('status', 'pending')->count();
         
         // Recent Orders
-        $recentOrders = \App\Models\Order::where('store_id', $storeId)
-            ->latest()
-            ->take(5)
-            ->get();
+        // Orders with Search and Filter
+        $ordersQuery = \App\Models\Order::where('store_id', $storeId)
+            ->with('items.item');
+
+        if ($request->has('search_order') && $request->search_order != '') {
+            $search = $request->search_order;
+            $ordersQuery->where(function($q) use ($search) {
+                $q->where('customer_name', 'ilike', "%{$search}%")
+                  ->orWhere('customer_phone', 'ilike', "%{$search}%")
+                  ->orWhere('id', 'like', "%{$search}%");
+            });
+        }
+
+        if ($request->has('status_filter') && $request->status_filter != '' && $request->status_filter != 'all') {
+            $ordersQuery->where('status', $request->status_filter);
+        }
+
+        $recentOrders = $ordersQuery->latest()->paginate(10, ['*'], 'orders_page');
 
         // Order Locations for Map
         $orderLocations = \App\Models\Order::where('store_id', $storeId)
@@ -112,11 +126,23 @@ class DashboardController extends Controller
             ->where('status', 'completed')
             ->sum('total_amount');
 
-        // Items for Inventory Table (Paginated)
-        $items = Items::where('store_id', $storeId)
-            ->with('category')
-            ->orderBy('created_at', 'desc')
-            ->paginate(10);
+        // Items with Search and Filter
+        $itemsQuery = Items::where('store_id', $storeId)
+            ->with('category');
+
+        if ($request->has('search_item') && $request->search_item != '') {
+            $search = $request->search_item;
+            $itemsQuery->where(function($q) use ($search) {
+                $q->where('name', 'ilike', "%{$search}%")
+                  ->orWhere('code', 'ilike', "%{$search}%");
+            });
+        }
+
+        if ($request->has('category_filter') && $request->category_filter != '' && $request->category_filter != 'all') {
+            $itemsQuery->where('category_id', $request->category_filter);
+        }
+
+        $items = $itemsQuery->orderBy('created_at', 'desc')->paginate(10);
 
         // Categories for Category Table (Paginated)
         $categories = Categories::where('store_id', $storeId)
@@ -126,6 +152,9 @@ class DashboardController extends Controller
 
         // All items for dropdown (not paginated)
         $allItems = Items::where('store_id', $storeId)->orderBy('name')->get();
+
+        // All categories for dropdown (not paginated)
+        $allCategories = Categories::where('store_id', $storeId)->orderBy('name')->get();
 
         return view('dashboard', compact(
             'totalItems',
@@ -146,7 +175,8 @@ class DashboardController extends Controller
             'totalRevenue',
             'items',
             'categories',
-            'allItems'
+            'allItems',
+            'allCategories'
         ));
     }
 }

@@ -1,6 +1,6 @@
 <x-app-layout>
 
-    <div class="py-12" x-data="{ activeTab: 'inventaris' }">
+    <div class="py-12" x-data="{ activeTab: '{{ request('tab', 'inventaris') }}' }">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
             
             <!-- Welcome Banner -->
@@ -18,7 +18,7 @@
             <x-dashboard.tabs-navigation />
 
             <!-- Tab Contents -->
-            <x-dashboard.tabs.inventaris :items="$items" />
+            <x-dashboard.tabs.inventaris :items="$items" :categories="$allCategories" />
             
             <x-dashboard.tabs.kategori :categories="$categories" />
             
@@ -90,5 +90,7 @@
     <x-modal name="create-stock-movement" :show="$errors->has('item_id') || $errors->has('type') || $errors->has('quantity_change') || $errors->has('notes')" focusable>
         <x-forms.stock-movement-create :items="$allItems" />
     </x-modal>
+
+    <x-modals.order-detail name="order-detail" />
 
 </x-app-layout>
