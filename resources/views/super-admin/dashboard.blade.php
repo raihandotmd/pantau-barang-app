@@ -1,9 +1,5 @@
 <x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Super Admin Dashboard') }}
-        </h2>
-    </x-slot>
+
 
 
     <!-- Leaflet CSS & JS -->
@@ -14,21 +10,64 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <!-- Stats Cards -->
             <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
-                <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-6">
-                    <div class="text-gray-500 text-sm font-medium uppercase">Total Pengguna</div>
-                    <div class="mt-2 text-3xl font-bold text-gray-900">{{ $totalUsers }}</div>
+                <!-- Total Users -->
+                <div class="bg-white overflow-hidden shadow-sm sm:rounded-xl border border-gray-100 p-6 transition-all hover:shadow-md">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <div class="text-gray-500 text-xs font-bold uppercase tracking-wider">Total Pengguna</div>
+                            <div class="mt-2 text-3xl font-extrabold text-gray-900">{{ $totalUsers }}</div>
+                        </div>
+                        <div class="p-3 bg-indigo-50 rounded-full">
+                            <svg class="w-8 h-8 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path>
+                            </svg>
+                        </div>
+                    </div>
                 </div>
-                <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-6">
-                    <div class="text-gray-500 text-sm font-medium uppercase">Total Toko</div>
-                    <div class="mt-2 text-3xl font-bold text-gray-900">{{ $totalStores }}</div>
+
+                <!-- Total Stores -->
+                <div class="bg-white overflow-hidden shadow-sm sm:rounded-xl border border-gray-100 p-6 transition-all hover:shadow-md">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <div class="text-gray-500 text-xs font-bold uppercase tracking-wider">Total Toko</div>
+                            <div class="mt-2 text-3xl font-extrabold text-gray-900">{{ $totalStores }}</div>
+                        </div>
+                        <div class="p-3 bg-blue-50 rounded-full">
+                            <svg class="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
+                            </svg>
+                        </div>
+                    </div>
                 </div>
-                <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-6">
-                    <div class="text-gray-500 text-sm font-medium uppercase">Toko Pending</div>
-                    <div class="mt-2 text-3xl font-bold text-yellow-600">{{ $pendingStores }}</div>
+
+                <!-- Pending Stores -->
+                <div class="bg-white overflow-hidden shadow-sm sm:rounded-xl border border-gray-100 p-6 transition-all hover:shadow-md">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <div class="text-gray-500 text-xs font-bold uppercase tracking-wider">Toko Pending</div>
+                            <div class="mt-2 text-3xl font-extrabold text-yellow-600">{{ $pendingStores }}</div>
+                        </div>
+                        <div class="p-3 bg-yellow-50 rounded-full">
+                            <svg class="w-8 h-8 text-yellow-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            </svg>
+                        </div>
+                    </div>
                 </div>
-                <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-6">
-                    <div class="text-gray-500 text-sm font-medium uppercase">Toko Aktif</div>
-                    <div class="mt-2 text-3xl font-bold text-green-600">{{ $activeStores }}</div>
+
+                <!-- Active Stores -->
+                <div class="bg-white overflow-hidden shadow-sm sm:rounded-xl border border-gray-100 p-6 transition-all hover:shadow-md">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <div class="text-gray-500 text-xs font-bold uppercase tracking-wider">Toko Aktif</div>
+                            <div class="mt-2 text-3xl font-extrabold text-green-600">{{ $activeStores }}</div>
+                        </div>
+                        <div class="p-3 bg-green-50 rounded-full">
+                            <svg class="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            </svg>
+                        </div>
+                    </div>
                 </div>
             </div>
 

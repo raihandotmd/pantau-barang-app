@@ -31,10 +31,18 @@ class StoreController extends Controller
         return view('super-admin.stores.index', compact('stores'));
     }
 
-    public function approve(Stores $store)
+    public function approve(Request $request, Stores $store)
     {
-        $store->update(['status' => 'active']);
-        return back()->with('success', 'Toko berhasil disetujui.');
+        $status = $request->input('status', 'active');
+        $store->update(['status' => $status]);
+        
+        $statusText = [
+            'active' => 'aktif',
+            'pending' => 'pending',
+            'rejected' => 'ditolak'
+        ];
+        
+        return back()->with('success', 'Status toko berhasil diubah menjadi ' . ($statusText[$status] ?? $status) . '.');
     }
 
     public function reject(Stores $store)

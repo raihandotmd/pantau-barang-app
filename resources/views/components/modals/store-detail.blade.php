@@ -9,64 +9,109 @@
 
             <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
 
-            <div x-show="open" x-transition:enter="ease-out duration-300" x-transition:enter-start="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95" x-transition:enter-end="opacity-100 translate-y-0 sm:scale-100" x-transition:leave="ease-in duration-200" x-transition:leave-start="opacity-100 translate-y-0 sm:scale-100" x-transition:leave-end="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95" class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-2xl sm:w-full">
-                <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
-                    <div class="sm:flex sm:items-start">
-                        <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left w-full">
-                            <h3 class="text-lg leading-6 font-medium text-gray-900" id="modal-title">
-                                Detail Toko: {{ $store->name }}
-                            </h3>
-                            <div class="mt-4 space-y-4">
-                                <div class="grid grid-cols-2 gap-4">
-                                    <div>
-                                        <label class="block text-sm font-medium text-gray-700">Nama Toko</label>
-                                        <p class="mt-1 text-sm text-gray-900">{{ $store->name }}</p>
-                                    </div>
-                                    <div>
-                                        <label class="block text-sm font-medium text-gray-700">Slug</label>
-                                        <p class="mt-1 text-sm text-gray-900">{{ $store->slug }}</p>
-                                    </div>
-                                    <div>
-                                        <label class="block text-sm font-medium text-gray-700">Kontak</label>
-                                        <p class="mt-1 text-sm text-gray-900">{{ $store->contact_info }}</p>
-                                    </div>
-                                    <div>
-                                        <label class="block text-sm font-medium text-gray-700">Status</label>
-                                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full 
-                                            {{ $store->status === 'active' ? 'bg-green-100 text-green-800' : 
-                                               ($store->status === 'pending' ? 'bg-yellow-100 text-yellow-800' : 'bg-red-100 text-red-800') }}">
-                                            {{ ucfirst($store->status) }}
-                                        </span>
-                                    </div>
-                                </div>
-                                
-                                <div>
-                                    <label class="block text-sm font-medium text-gray-700">Alamat</label>
-                                    <p class="mt-1 text-sm text-gray-900">{{ $store->address }}</p>
-                                </div>
+            <div x-show="open" x-transition:enter="ease-out duration-300" x-transition:enter-start="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95" x-transition:enter-end="opacity-100 translate-y-0 sm:scale-100" x-transition:leave="ease-in duration-200" x-transition:leave-start="opacity-100 translate-y-0 sm:scale-100" x-transition:leave-end="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95" class="inline-block align-bottom bg-white rounded-2xl text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-3xl sm:w-full">
+                
+                <!-- Modal Header -->
+                <div class="bg-gray-50 px-6 py-4 border-b border-gray-100 flex justify-between items-center">
+                    <div>
+                        <h3 class="text-xl font-bold text-gray-900">
+                            {{ $store->name }}
+                        </h3>
+                        <p class="text-sm text-gray-500">{{ $store->slug }}</p>
+                    </div>
+                    <span class="px-3 py-1 inline-flex text-sm leading-5 font-semibold rounded-full 
+                        {{ $store->status === 'active' ? 'bg-green-100 text-green-800' : 
+                           ($store->status === 'pending' ? 'bg-yellow-100 text-yellow-800' : 'bg-red-100 text-red-800') }}">
+                        {{ ucfirst($store->status) }}
+                    </span>
+                </div>
 
-                                <div>
-                                    <label class="block text-sm font-medium text-gray-700">Deskripsi</label>
-                                    <p class="mt-1 text-sm text-gray-900">{{ $store->description }}</p>
+                <!-- Modal Body -->
+                <div class="px-6 py-6">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                        <!-- Left Column: Details -->
+                        <div class="space-y-4">
+                            <div>
+                                <label class="block text-xs font-semibold text-gray-500 uppercase tracking-wide">Kontak</label>
+                                <div class="mt-1 flex items-center text-gray-900">
+                                    <svg class="w-4 h-4 mr-2 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                                    </svg>
+                                    {{ $store->contact_info }}
                                 </div>
-
-                                @if($store->location)
-                                <div>
-                                    <label class="block text-sm font-medium text-gray-700 mb-2">Lokasi</label>
-                                    <div id="map-{{ $store->id }}" style="height: 300px;" class="w-full rounded-lg border border-gray-300"></div>
-                                </div>
-                                @else
-                                <div>
-                                    <label class="block text-sm font-medium text-gray-700 mb-2">Lokasi</label>
-                                    <p class="mt-1 text-sm text-gray-500 italic">Lokasi tidak tersedia</p>
-                                </div>
-                                @endif
                             </div>
+
+                            <div>
+                                <label class="block text-xs font-semibold text-gray-500 uppercase tracking-wide">Alamat</label>
+                                <div class="mt-1 flex items-start text-gray-900">
+                                    <svg class="w-4 h-4 mr-2 text-gray-400 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                    </svg>
+                                    <span>{{ $store->address }}</span>
+                                </div>
+                            </div>
+
+                            <div>
+                                <label class="block text-xs font-semibold text-gray-500 uppercase tracking-wide">Deskripsi</label>
+                                <p class="mt-1 text-sm text-gray-600 leading-relaxed">{{ $store->description ?: 'Tidak ada deskripsi.' }}</p>
+                            </div>
+                        </div>
+
+                        <!-- Right Column: Map -->
+                        <div class="h-full min-h-[200px] bg-gray-50 rounded-xl overflow-hidden border border-gray-200 relative">
+                            @if($store->location)
+                                <div id="map-{{ $store->id }}" class="absolute inset-0 w-full h-full"></div>
+                            @else
+                                <div class="absolute inset-0 flex flex-col items-center justify-center text-gray-400">
+                                    <svg class="w-10 h-10 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636"></path>
+                                    </svg>
+                                    <span class="text-sm">Lokasi tidak tersedia</span>
+                                </div>
+                            @endif
                         </div>
                     </div>
                 </div>
-                <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
-                    <button type="button" @click="open = false" class="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm">
+
+                <!-- Modal Footer / Actions -->
+                <div class="bg-gray-50 px-6 py-4 flex flex-col sm:flex-row justify-between items-center gap-4 border-t border-gray-100">
+                    <div class="flex-1 w-full sm:w-auto">
+                        <form action="{{ route('super-admin.stores.approve', $store) }}" method="POST" x-data="{ newStatus: '{{ $store->status }}' }">
+                            @csrf
+                            @method('PATCH')
+                            <input type="hidden" name="status" x-model="newStatus">
+                            
+                            <div class="flex items-center gap-3">
+                                <span class="text-sm font-medium text-gray-700">Ubah Status:</span>
+                                <div class="relative flex items-center">
+                                    <select x-model="newStatus" 
+                                        class="appearance-none bg-white border border-gray-300 text-gray-700 py-2 pl-3 pr-10 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm font-medium transition-shadow cursor-pointer hover:border-gray-400">
+                                        <option value="pending">Pending</option>
+                                        <option value="active">Active</option>
+                                        <option value="rejected">Rejected</option>
+                                    </select>
+                                    <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-500">
+                                        <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                                        </svg>
+                                    </div>
+                                </div>
+                                
+                                <button type="submit" 
+                                    x-show="newStatus !== '{{ $store->status }}'"
+                                    x-transition:enter="transition ease-out duration-200"
+                                    x-transition:enter-start="opacity-0 transform scale-95"
+                                    x-transition:enter-end="opacity-100 transform scale-100"
+                                    onclick="return confirm('Apakah Anda yakin ingin mengubah status toko ini?')" 
+                                    class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-lg text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 shadow-sm">
+                                    Simpan
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <button type="button" @click="open = false" class="w-full sm:w-auto inline-flex justify-center items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-lg text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
                         Tutup
                     </button>
                 </div>
@@ -77,13 +122,14 @@
     <script>
         document.addEventListener('alpine:init', () => {
             Alpine.data('storeDetailMap{{ $store->id }}', () => ({
+                map: null,
                 init() {
                     @if($store->location)
                     this.$watch('open', value => {
                         if (value) {
-                            setTimeout(() => {
+                            this.$nextTick(() => {
                                 this.initMap();
-                            }, 100);
+                            });
                         }
                     });
                     @endif
@@ -94,26 +140,23 @@
                     const lat = {{ $store->location->getLatitude() }};
                     const lng = {{ $store->location->getLongitude() }};
                     
-                    if (document.getElementById(mapId)) {
-                        // Check if map is already initialized
-                        if (L.DomUtil.get(mapId)._leaflet_id) {
-                            return;
-                        }
+                    if (!document.getElementById(mapId)) return;
 
-                        const map = L.map(mapId).setView([lat, lng], 15);
+                    if (!this.map) {
+                        this.map = L.map(mapId).setView([lat, lng], 15);
                         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
                             attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-                        }).addTo(map);
+                        }).addTo(this.map);
                         
-                        L.marker([lat, lng]).addTo(map)
+                        L.marker([lat, lng]).addTo(this.map)
                             .bindPopup('{{ $store->name }}')
                             .openPopup();
-                            
-                        // Fix map rendering issues in modal
-                        setTimeout(() => {
-                            map.invalidateSize();
-                        }, 200);
                     }
+                    
+                    // Always invalidate size when opening modal to fix rendering issues
+                    setTimeout(() => {
+                        this.map.invalidateSize();
+                    }, 200);
                     @endif
                 }
             }));
