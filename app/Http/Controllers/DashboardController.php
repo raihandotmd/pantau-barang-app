@@ -52,11 +52,11 @@ class DashboardController extends Controller
             ->count();
 
         // Recent stock movements
+        // Recent stock movements
         $recentMovements = StockMovements::where('store_id', $storeId)
             ->with(['item', 'user'])
             ->orderBy('created_at', 'desc')
-            ->limit(10)
-            ->get();
+            ->paginate(10, ['*'], 'movements_page');
 
         // Recent activities
         $recentActivities = ActivityLogs::where('store_id', $storeId)
