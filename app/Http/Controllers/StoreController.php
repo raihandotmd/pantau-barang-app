@@ -46,6 +46,7 @@ class StoreController extends Controller
                 'address' => $request->address,
                 'description' => $request->description,
                 'location' => Point::make($request->latitude, $request->longitude),
+                'status' => 'pending',
             ]);
 
             // Update user's store_id
@@ -55,7 +56,7 @@ class StoreController extends Controller
 
             DB::commit();
 
-            return redirect()->route('dashboard')->with('success', 'Store created successfully!');
+            return redirect()->route('store.pending')->with('success', 'Toko berhasil dibuat! Mohon tunggu persetujuan admin.');
 
         } catch (\Exception $e) {
             DB::rollback();
@@ -76,9 +77,16 @@ class StoreController extends Controller
         // Ensure slug is unique
         while (Stores::where('slug', $slug)->exists()) {
             $slug = $baseSlug . '-' . $counter;
-            $counter++;
         }
-
+        
         return response()->json(['slug' => $slug]);
+    }
+
+    /**
+     * Show the pending approval page.
+     */
+    public function pending()
+    {
+        return view('store.pending');
     }
 }

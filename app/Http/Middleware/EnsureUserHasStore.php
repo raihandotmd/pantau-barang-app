@@ -15,8 +15,15 @@ class EnsureUserHasStore
      */
     public function handle(Request $request, Closure $next): Response
     {
+        $user = $request->user();
+        
+        // Skip check for Super Admins
+        if ($user && $user->is_super_admin) {
+            return $next($request);
+        }
+        
         // Check if user is authenticated and has a store
-        if ($request->user() && !$request->user()->store_id) {
+        if ($user && !$user->store_id) {
             return redirect()
                 ->route('store.create')
                 ->with('error', 'You need to create a store first to access this feature.');
