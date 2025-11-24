@@ -33,6 +33,8 @@ class StoreStoreRequest extends FormRequest
             'contact_info' => ['required', 'string', 'max:255', 'unique:stores,contact_info'],
             'address' => ['nullable', 'string', 'max:500'],
             'description' => ['nullable', 'string', 'max:1000'],
+            'latitude' => ['required', 'numeric', 'between:-90,90'],
+            'longitude' => ['required', 'numeric', 'between:-180,180'],
         ];
     }
 
@@ -48,6 +50,8 @@ class StoreStoreRequest extends FormRequest
             'slug.regex' => 'Store slug must contain only lowercase letters, numbers, and hyphens.',
             'contact_info.required' => 'Contact information is required.',
             'contact_info.unique' => 'This contact information is already registered to another store.',
+            'latitude.required' => 'Please select a location on the map.',
+            'longitude.required' => 'Please select a location on the map.',
         ];
     }
 

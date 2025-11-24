@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Clickbar\Magellan\Data\Geometries\Point;
 
 class StoreController extends Controller
 {
@@ -44,6 +45,7 @@ class StoreController extends Controller
                 'contact_info' => $request->contact_info,
                 'address' => $request->address,
                 'description' => $request->description,
+                'location' => Point::make($request->latitude, $request->longitude),
             ]);
 
             // Update user's store_id

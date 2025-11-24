@@ -70,6 +70,22 @@
                             <p class="text-sm text-gray-500 mt-1">Primary contact method for your store</p>
                         </div>
 
+                        <!-- Store Location -->
+                        <div>
+                            <x-input-label for="location" :value="__('Store Location')" class="text-lg font-medium" />
+                            <p class="text-sm text-gray-500 mb-2">Click on the map, use the search button (magnifying glass), or the GPS button to set your store location.</p>
+                            
+                            <!-- Map Container -->
+                            <div id="map" class="h-96 w-full rounded-xl border-2 border-gray-300 z-0"></div>
+                            
+                            <!-- Hidden Inputs -->
+                            <input type="hidden" name="latitude" id="latitude" value="{{ old('latitude') }}">
+                            <input type="hidden" name="longitude" id="longitude" value="{{ old('longitude') }}">
+                            
+                            <x-input-error :messages="$errors->get('latitude')" class="mt-2" />
+                            <x-input-error :messages="$errors->get('longitude')" class="mt-2" />
+                        </div>
+
                         <!-- Address -->
                         <div>
                             <x-input-label for="address" :value="__('Store Address')" class="text-lg font-medium" />
@@ -175,7 +191,20 @@
     </div>
 
     <!-- JavaScript for Slug Generation -->
+    <!-- Leaflet CSS & JS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    
+    <!-- Leaflet Control Geocoder -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css" />
+    <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
+
+    <!-- Leaflet Locate Control -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet.locatecontrol/dist/L.Control.Locate.min.css" />
+    <script src="https://cdn.jsdelivr.net/npm/leaflet.locatecontrol/dist/L.Control.Locate.min.js" charset="utf-8"></script>
+
     <script>
+        // Slug Generation
         function generateSlug() {
             const nameInput = document.getElementById('name');
             const slugInput = document.getElementById('slug');
@@ -210,5 +239,81 @@
             value = value.toLowerCase().replace(/[^a-z0-9-]/g, '').replace(/--+/g, '-');
             e.target.value = value;
         });
+
+        // Map Logic
+        let map, marker;
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            // Default to Jakarta
+            const defaultLat = -6.2088;
+            const defaultLng = 106.8456;
+            
+            // Check for old input or default
+            const oldLat = document.getElementById('latitude').value;
+            const oldLng = document.getElementById('longitude').value;
+            
+            const startLat = oldLat ? parseFloat(oldLat) : defaultLat;
+            const startLng = oldLng ? parseFloat(oldLng) : defaultLng;
+
+            map = L.map('map').setView([startLat, startLng], 13);
+
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            }).addTo(map);
+
+            if (oldLat && oldLng) {
+                marker = L.marker([startLat, startLng]).addTo(map);
+            }
+
+            // Click handler
+            map.on('click', function(e) {
+                updateLocation(e.latlng.lat, e.latlng.lng);
+            });
+
+            // Add Geocoder Control (Search)
+            const geocoder = L.Control.geocoder({
+                defaultMarkGeocode: false
+            })
+            .on('markgeocode', function(e) {
+                const bbox = e.geocode.bbox;
+                const poly = L.polygon([
+                    bbox.getSouthEast(),
+                    bbox.getNorthEast(),
+                    bbox.getNorthWest(),
+                    bbox.getSouthWest()
+                ]);
+                map.fitBounds(poly.getBounds());
+                
+                updateLocation(e.geocode.center.lat, e.geocode.center.lng);
+            })
+            .addTo(map);
+
+            // Add Locate Control (GPS)
+            L.control.locate({
+                position: 'topleft',
+                strings: {
+                    title: "Show me where I am"
+                },
+                locateOptions: {
+                    enableHighAccuracy: true
+                }
+            }).addTo(map);
+
+            // Handle location found event from Locate Control
+            map.on('locationfound', function(e) {
+                updateLocation(e.latlng.lat, e.latlng.lng);
+            });
+        });
+
+        function updateLocation(lat, lng) {
+            if (marker) {
+                marker.setLatLng([lat, lng]);
+            } else {
+                marker = L.marker([lat, lng]).addTo(map);
+            }
+            
+            document.getElementById('latitude').value = lat;
+            document.getElementById('longitude').value = lng;
+        }
     </script>
 </x-app-layout>
