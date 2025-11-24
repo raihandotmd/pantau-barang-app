@@ -14,6 +14,20 @@
         </div>
     </div>
 
+    <!-- Search -->
+    <div class="mb-6">
+        <form method="GET" action="{{ route('dashboard') }}" class="flex flex-col sm:flex-row gap-2">
+            <input type="hidden" name="tab" value="kategori">
+            
+            <div class="relative flex-grow">
+                <input type="text" name="search_category" value="{{ request('search_category') }}" placeholder="Cari kategori..." class="w-full pl-10 pr-4 py-2 rounded-lg border border-gray-300 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500">
+                <svg class="w-5 h-5 text-gray-400 absolute left-3 top-2.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+            </div>
+            
+            <button type="submit" class="hidden sm:inline-block px-4 py-2 bg-indigo-600 text-white rounded-lg text-sm hover:bg-indigo-700">Cari</button>
+        </form>
+    </div>
+
     <div class="overflow-x-auto">
         <table class="min-w-full divide-y divide-gray-200">
             <thead class="bg-gray-50">

@@ -145,9 +145,16 @@ class DashboardController extends Controller
         $items = $itemsQuery->orderBy('created_at', 'desc')->paginate(10);
 
         // Categories for Category Table (Paginated)
-        $categories = Categories::where('store_id', $storeId)
-            ->withCount('items')
-            ->orderBy('name')
+        // Categories for Category Table (Paginated)
+        $categoriesQuery = Categories::where('store_id', $storeId)
+            ->withCount('items');
+
+        if ($request->has('search_category') && $request->search_category != '') {
+            $search = $request->search_category;
+            $categoriesQuery->where('name', 'ilike', "%{$search}%");
+        }
+
+        $categories = $categoriesQuery->orderBy('name')
             ->paginate(10, ['*'], 'categories_page');
 
         // All items for dropdown (not paginated)
