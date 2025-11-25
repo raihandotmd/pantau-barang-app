@@ -41,12 +41,22 @@ class CheckoutController extends Controller
                 'name' => $item->name,
                 'price' => $item->price,
                 'quantity' => 1,
-                'image' => $item->image_path // Assuming image_path exists or null
+                'image' => $item->image_path,
+                'category' => $item->category->name ?? 'Uncategorized'
             ];
         }
         
         session()->put('cart', $cart);
         
+        if ($request->wantsJson()) {
+            return response()->json([
+                'success' => true,
+                'message' => 'Item added to cart!',
+                'cart_count' => count($cart),
+                'cart' => $cart
+            ]);
+        }
+
         return redirect()->back()->with('success', 'Item added to cart!');
     }
 
@@ -58,6 +68,16 @@ class CheckoutController extends Controller
                 unset($cart[$request->id]);
                 session()->put('cart', $cart);
             }
+            
+            if ($request->wantsJson()) {
+                return response()->json([
+                    'success' => true,
+                    'message' => 'Item removed from cart.',
+                    'cart_count' => count($cart),
+                    'cart' => $cart
+                ]);
+            }
+
             return redirect()->back()->with('success', 'Item removed from cart.');
         }
     }
@@ -74,6 +94,9 @@ class CheckoutController extends Controller
 
         $cart = session()->get('cart');
         if (empty($cart)) {
+            if ($request->wantsJson()) {
+                return response()->json(['success' => false, 'message' => 'Cart is empty.'], 400);
+            }
             return redirect()->route('catalog.index')->with('error', 'Cart is empty.');
         }
 
@@ -119,10 +142,23 @@ class CheckoutController extends Controller
 
             DB::commit();
 
+            if ($request->wantsJson()) {
+                return response()->json([
+                    'success' => true, 
+                    'message' => 'Order placed successfully! We will contact you shortly.',
+                    'order_id' => $order->id
+                ]);
+            }
+
             return redirect()->route('catalog.index')->with('success', 'Order placed successfully! We will contact you shortly.');
 
         } catch (\Exception $e) {
             DB::rollback();
+            
+            if ($request->wantsJson()) {
+                return response()->json(['success' => false, 'message' => 'Failed to place order: ' . $e->getMessage()], 500);
+            }
+            
             return back()->with('error', 'Failed to place order: ' . $e->getMessage());
         }
     }

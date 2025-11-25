@@ -12,7 +12,11 @@ use App\Http\Middleware\CheckStoreStatus;
 use App\Http\Middleware\IsSuperAdmin;
 
 Route::get('/', function () {
-    return view('welcome');
+    $store = \App\Models\Stores::first();
+    if ($store) {
+        return redirect()->route('store.show', $store->slug);
+    }
+    return abort(404);
 });
 
 Route::get('/dashboard', [DashboardController::class, 'index'])
@@ -65,12 +69,13 @@ Route::middleware(['auth', IsSuperAdmin::class])->prefix('super-admin')->name('s
 });
 
 // Frontend Routes (Public)
-Route::get('/catalog', [\App\Http\Controllers\Front\CatalogController::class, 'index'])->name('catalog.index');
-Route::get('/catalog/{item}', [\App\Http\Controllers\Front\CatalogController::class, 'show'])->name('catalog.show');
-
 Route::get('/cart', [\App\Http\Controllers\Front\CheckoutController::class, 'index'])->name('cart.index');
 Route::post('/cart/add/{item}', [\App\Http\Controllers\Front\CheckoutController::class, 'addToCart'])->name('cart.add');
 Route::post('/cart/remove', [\App\Http\Controllers\Front\CheckoutController::class, 'removeFromCart'])->name('cart.remove');
 Route::post('/checkout', [\App\Http\Controllers\Front\CheckoutController::class, 'store'])->name('checkout.store');
+
+// Store Routes (Slug-based) - Must be at the end
+Route::get('/{slug}', [\App\Http\Controllers\Front\StoreController::class, 'show'])->name('store.show');
+Route::get('/{slug}/profile', [\App\Http\Controllers\Front\StoreController::class, 'profile'])->name('store.profile');
 
 require __DIR__ . '/auth.php';
