@@ -15,6 +15,7 @@ class Stores extends Model
         'location',
         'description',
         'status',
+        'banner_image',
     ];
 
     protected $casts = [

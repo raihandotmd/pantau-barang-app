@@ -45,6 +45,10 @@ Route::middleware(['auth', 'has.store', 'verify.store'])->group(function () {
     Route::get('/orders/{order}', [\App\Http\Controllers\Admin\OrderController::class, 'show'])->name('orders.show')->middleware(CheckStoreStatus::class);
     Route::patch('/orders/{order}/status', [\App\Http\Controllers\Admin\OrderController::class, 'updateStatus'])->name('orders.update-status')->middleware(CheckStoreStatus::class);
 
+    // Store Profile routes
+    Route::get('/store/profile', [\App\Http\Controllers\StoreProfileController::class, 'edit'])->name('store-profile.edit')->middleware(CheckStoreStatus::class);
+    Route::patch('/store/profile', [\App\Http\Controllers\StoreProfileController::class, 'update'])->name('store-profile.update')->middleware(CheckStoreStatus::class);
+
     // Stock Movement routes
     Route::resource('stock-movements', StockMovementController::class)->only(['index', 'create', 'store', 'show'])->middleware(CheckStoreStatus::class);
 });

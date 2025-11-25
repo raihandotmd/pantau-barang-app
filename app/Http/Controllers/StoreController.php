@@ -45,7 +45,7 @@ class StoreController extends Controller
                 'contact_info' => $request->contact_info,
                 'address' => $request->address,
                 'description' => $request->description,
-                'location' => Point::make($request->latitude, $request->longitude),
+                'location' => Point::make($request->longitude, $request->latitude),
                 'status' => 'pending',
             ]);
 
