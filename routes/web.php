@@ -19,10 +19,11 @@ Route::get('/dashboard', [DashboardController::class, 'index'])
     ->middleware(['auth', 'has.store', CheckStoreStatus::class])
     ->name('dashboard');
 
-Route::middleware(['auth', 'has.store', 'verify.store'])->group(function () {
+Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
 
     // Store routes - only need has.store, not verify.store (creating new store)
     Route::middleware(['auth', 'has.store'])->group(function () {
@@ -36,7 +37,8 @@ Route::middleware(['auth', 'has.store', 'verify.store'])->group(function () {
     });
 
     // Category routes
-    Route::resource('categories', CategoryController::class)->middleware(CheckStoreStatus::class);
+    Route::middleware(['auth', 'has.store', 'verify.store'])->group(function () {
+        Route::resource('categories', CategoryController::class)->middleware(CheckStoreStatus::class);
 
     // Item routes
     Route::resource('items', ItemController::class)->middleware(CheckStoreStatus::class);
