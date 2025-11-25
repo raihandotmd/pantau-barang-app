@@ -57,6 +57,11 @@ class StoreProfileController extends Controller
         unset($validated['latitude']);
         unset($validated['longitude']);
 
+        // If store was rejected, reset status to pending for re-review
+        if ($store->status === 'rejected') {
+            $validated['status'] = 'pending';
+        }
+
         $store->update($validated);
 
         return redirect()->route('store-profile.edit')->with('success', 'Profil toko berhasil diperbarui.');

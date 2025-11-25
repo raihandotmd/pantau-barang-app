@@ -89,4 +89,12 @@ class StoreController extends Controller
     {
         return view('store.pending');
     }
+
+    /**
+     * Show the rejected page.
+     */
+    public function rejected()
+    {
+        return view('store.rejected');
+    }
 }

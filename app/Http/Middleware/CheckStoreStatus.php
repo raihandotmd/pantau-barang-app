@@ -31,12 +31,15 @@ class CheckStoreStatus
         }
 
         if ($status === 'rejected') {
-            // You might want a dedicated rejected page, or just show an error
-            abort(403, 'Maaf, pengajuan toko Anda ditolak. Silakan hubungi admin.');
+            // Allow access to store profile edit/update routes so they can fix issues
+            if ($request->routeIs('store-profile.edit') || $request->routeIs('store-profile.update') || $request->routeIs('store.rejected') || $request->is('logout')) {
+                return $next($request);
+            }
+            return redirect()->route('store.rejected');
         }
 
-        // If status is active, ensure they are not trying to access the pending page
-        if ($status === 'active' && $request->routeIs('store.pending')) {
+        // If status is active, ensure they are not trying to access the pending or rejected page
+        if ($status === 'active' && ($request->routeIs('store.pending') || $request->routeIs('store.rejected'))) {
             return redirect()->route('dashboard');
         }
 
