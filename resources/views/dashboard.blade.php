@@ -50,7 +50,11 @@
         </div>
     </div>
 
+    @push('styles')
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    @endpush
+
+    @push('scripts')
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
@@ -87,7 +91,7 @@
                 map.invalidateSize();
             });
         });
-    </script>
+    @endpush
 
     <!-- Modals -->
     <x-modal name="create-category" :show="$errors->has('name') && !$errors->has('price')" focusable maxWidth="lg">

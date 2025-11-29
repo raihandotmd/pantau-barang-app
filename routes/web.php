@@ -74,8 +74,9 @@ Route::post('/cart/add/{item}', [\App\Http\Controllers\Front\CheckoutController:
 Route::post('/cart/remove', [\App\Http\Controllers\Front\CheckoutController::class, 'removeFromCart'])->name('cart.remove');
 Route::post('/checkout', [\App\Http\Controllers\Front\CheckoutController::class, 'store'])->name('checkout.store');
 
+require __DIR__ . '/auth.php';
+
 // Store Routes (Slug-based) - Must be at the end
 Route::get('/{slug}', [\App\Http\Controllers\Front\StoreController::class, 'show'])->name('store.show');
 Route::get('/{slug}/profile', [\App\Http\Controllers\Front\StoreController::class, 'profile'])->name('store.profile');
 
-require __DIR__ . '/auth.php';
