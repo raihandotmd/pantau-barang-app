@@ -163,7 +163,10 @@ class DashboardController extends Controller
         // All categories for dropdown (not paginated)
         $allCategories = Categories::where('store_id', $storeId)->orderBy('name')->get();
 
+        $storeStatus = \App\Models\Stores::find($storeId)->status;
+
         return view('dashboard', compact(
+            'storeStatus',
             'totalItems',
             'totalCategories',
             'inventoryValue',

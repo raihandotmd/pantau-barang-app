@@ -1,3 +1,4 @@
+@props(['status'])
 <div class="bg-gray-900 rounded-lg p-8 text-white relative overflow-hidden">
     <div class="relative z-10">
         <div class="flex items-center gap-3 mb-2">
@@ -5,10 +6,10 @@
             <h1 class="text-xl font-bold">Selamat Datang di Platform Multi-Vendor Pantau Barang</h1>
         </div>
         <p class="text-gray-300 max-w-3xl mb-4">
-            Anda adalah bagian dari ekosistem penjual spareparts motor terbesar di Jakarta Timur. Kelola toko, produk, dan pesanan Anda dengan mudah melalui dashboard ini.
+            Anda adalah bagian dari ekosistem platform multi-vendor Pantau Barang. Kelola toko, produk, dan pesanan Anda dengan mudah melalui dashboard ini.
         </p>
         <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-blue-600 text-white">
-            Status: Aktif
+            Status: {{ $status === 'approved' ? 'Aktif' : 'Tidak Aktif' }}
         </span>
     </div>
 </div>
