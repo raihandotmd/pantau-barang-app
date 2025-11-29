@@ -9,10 +9,10 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-end mb-12">
                 <div>
-                    <h2 class="text-3xl font-extrabold text-gray-900">Produk Terpopuler</h2>
-                    <p class="mt-2 text-gray-600">Pilihan terbaik untuk motor kesayangan Anda.</p>
+                    <h2 class="text-3xl font-extrabold text-gray-900">Katalog Produk</h2>
+                    <p class="mt-2 text-gray-600">Koleksi produk yang tersedia di toko ini.</p>
                 </div>
-                <a href="#" class="hidden sm:flex items-center text-indigo-600 hover:text-indigo-500 font-medium">
+                <a href="{{ route('store.products', $store->slug) }}" class="hidden sm:flex items-center text-indigo-600 hover:text-indigo-500 font-medium">
                     Lihat Semua <span aria-hidden="true"> &rarr;</span>
                 </a>
             </div>
@@ -30,7 +30,7 @@
             </div>
             
             <div class="mt-12 text-center sm:hidden">
-                <a href="#" class="text-indigo-600 font-medium hover:text-indigo-500">Lihat Semua Produk &rarr;</a>
+                <a href="{{ route('store.products', $store->slug) }}" class="text-indigo-600 font-medium hover:text-indigo-500">Lihat Semua Produk &rarr;</a>
             </div>
         </div>
     </div>

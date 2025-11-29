@@ -78,5 +78,6 @@ require __DIR__ . '/auth.php';
 
 // Store Routes (Slug-based) - Must be at the end
 Route::get('/{slug}', [\App\Http\Controllers\Front\StoreController::class, 'show'])->name('store.show');
+Route::get('/{slug}/products', [\App\Http\Controllers\Front\StoreController::class, 'products'])->name('store.products');
 Route::get('/{slug}/profile', [\App\Http\Controllers\Front\StoreController::class, 'profile'])->name('store.profile');
 

@@ -10,7 +10,7 @@
                     <span class="font-bold text-2xl tracking-tight">Pantau Barang</span>
                 </div>
                 <p class="text-indigo-200 text-sm leading-relaxed max-w-xs">
-                    Platform multi-vendor terpercaya untuk inventaris dan pemesanan spareparts motor. Kelola toko Anda dengan mudah bersama kami.
+                    Platform multi-vendor terpercaya untuk inventaris dan pemesanan. Kelola toko Anda dengan mudah bersama kami.
                 </p>
                 <div class="pt-2">
                     <a href="mailto:pantau.barang@proton.me" class="inline-flex items-center gap-2 text-indigo-200 hover:text-white transition-colors">

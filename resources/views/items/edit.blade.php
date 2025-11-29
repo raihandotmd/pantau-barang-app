@@ -26,9 +26,32 @@
                         </div>
                     </div>
 
-                    <form method="POST" action="{{ route('items.update', $item) }}" class="space-y-6">
+                    <form method="POST" action="{{ route('items.update', $item) }}" class="space-y-6" enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
+
+                        <!-- Image Upload -->
+                        <div>
+                            <x-input-label for="image" :value="__('Item Image (Optional)')" class="text-lg font-medium" />
+                            
+                            @if($item->image)
+                                <div class="mt-2 mb-4">
+                                    <img src="{{ Storage::url($item->image) }}" alt="Current Image" class="w-32 h-32 object-cover rounded-lg border border-gray-200">
+                                    <p class="text-xs text-gray-500 mt-1">Current image</p>
+                                </div>
+                            @endif
+
+                            <input id="image" type="file" name="image" accept="image/*"
+                                class="block mt-2 w-full text-sm text-gray-500
+                                file:mr-4 file:py-2 file:px-4
+                                file:rounded-full file:border-0
+                                file:text-sm file:font-semibold
+                                file:bg-blue-50 file:text-blue-700
+                                hover:file:bg-blue-100
+                                transition-all duration-200" />
+                            <x-input-error :messages="$errors->get('image')" class="mt-2" />
+                            <p class="text-sm text-gray-500 mt-1">Upload a new image to replace the current one (JPG, PNG, WEBP)</p>
+                        </div>
 
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <!-- Item Name -->
