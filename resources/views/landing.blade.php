@@ -6,8 +6,8 @@
                 <div class="flex">
                     <!-- Logo -->
                     <div class="shrink-0 flex items-center">
-                        <a href="{{ url('/') }}" class="font-bold text-2xl text-indigo-600 flex items-center gap-2">
-                            <div class="w-10 h-10 bg-indigo-600 rounded-lg flex items-center justify-center text-white font-bold text-xl shadow-lg">
+                        <a href="{{ url('/') }}" class="font-bold text-2xl text-pantau-dark flex items-center gap-2">
+                            <div class="w-10 h-10 bg-pantau-dark rounded-lg flex items-center justify-center text-white font-bold text-xl shadow-lg">
                                 PB
                             </div>
                             Pantau Barang
@@ -16,11 +16,11 @@
                 </div>
                 <div class="flex items-center gap-4">
                     @auth
-                        <a href="{{ route('dashboard') }}" class="text-sm font-medium text-gray-700 hover:text-indigo-600 transition-colors">Dashboard</a>
+                        <a href="{{ route('dashboard') }}" class="text-sm font-medium text-gray-700 hover:text-pantau-medium transition-colors">Dashboard</a>
                     @else
-                        <a href="{{ route('login') }}" class="text-sm font-medium text-gray-700 hover:text-indigo-600 transition-colors">Log in</a>
+                        <a href="{{ route('login') }}" class="text-sm font-medium text-gray-700 hover:text-pantau-medium transition-colors">Log in</a>
                         @if (Route::has('register'))
-                            <a href="{{ route('register') }}" class="px-4 py-2 text-sm font-medium text-white bg-indigo-600 rounded-lg hover:bg-indigo-700 transition-colors">Register</a>
+                            <a href="{{ route('register') }}" class="px-4 py-2 text-sm font-medium text-white bg-pantau-medium rounded-lg hover:bg-pantau-dark transition-colors">Register</a>
                         @endif
                     @endauth
                 </div>
@@ -36,20 +36,20 @@
                 <div class="text-center lg:text-left">
                     <h1 class="text-4xl tracking-tight font-extrabold text-gray-900 sm:text-5xl md:text-6xl">
                         <span class="block">Platform Manajemen</span>
-                        <span class="block text-indigo-600">Stok & Toko Online</span>
+                        <span class="block text-pantau-medium">Stok & Toko Online</span>
                     </h1>
                     <p class="mt-3 text-base text-gray-500 sm:mt-5 sm:text-lg sm:max-w-xl sm:mx-auto md:mt-5 md:text-xl lg:mx-0">
                         Pantau Barang membantu Anda mengelola inventaris, memantau stok, dan menjual produk secara online dengan mudah. Temukan toko favorit Anda di bawah ini.
                     </p>
                     <div class="mt-5 sm:mt-8 flex flex-col sm:flex-row sm:justify-center lg:justify-start gap-3">
                         <div class="rounded-md shadow">
-                            <a href="#stores" class="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 md:py-4 md:text-lg md:px-10">
+                            <a href="#stores" class="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-pantau-medium hover:bg-pantau-dark md:py-4 md:text-lg md:px-10">
                                 Lihat Toko
                             </a>
                         </div>
                         @guest
                         <div>
-                            <a href="{{ route('register') }}" class="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-indigo-700 bg-indigo-100 hover:bg-indigo-200 md:py-4 md:text-lg md:px-10">
+                            <a href="{{ route('register') }}" class="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-pantau-dark bg-pantau-sand/50 hover:bg-pantau-sand md:py-4 md:text-lg md:px-10">
                                 Buka Toko Gratis
                             </a>
                         </div>
@@ -84,8 +84,8 @@
                             @if($store->banner_image)
                                 <img class="h-full w-full object-cover" src="{{ Storage::url($store->banner_image) }}" alt="{{ $store->name }}">
                             @else
-                                <div class="h-full w-full bg-gradient-to-br from-indigo-50 to-blue-50 flex items-center justify-center">
-                                    <svg class="h-16 w-16 text-indigo-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <div class="h-full w-full bg-gradient-to-br from-pantau-light/10 to-pantau-sand/20 flex items-center justify-center">
+                                    <svg class="h-16 w-16 text-pantau-light/50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
                                     </svg>
                                 </div>
@@ -99,7 +99,7 @@
                         <div class="flex-1 bg-white p-6 flex flex-col justify-between">
                             <div class="flex-1">
                                 <a href="{{ route('store.show', $store->slug) }}" class="block">
-                                    <p class="text-xl font-bold text-gray-900 hover:text-indigo-600 transition-colors">{{ $store->name }}</p>
+                                    <p class="text-xl font-bold text-gray-900 hover:text-pantau-medium transition-colors">{{ $store->name }}</p>
                                     <p class="mt-3 text-base text-gray-500 line-clamp-3">
                                         {{ $store->description ?? 'Toko ini menyediakan berbagai macam barang berkualitas untuk kebutuhan Anda.' }}
                                     </p>
@@ -107,8 +107,8 @@
                             </div>
                             <div class="mt-6 flex items-center">
                                 <div class="flex-shrink-0">
-                                    <div class="h-10 w-10 rounded-full bg-indigo-100 flex items-center justify-center">
-                                        <svg class="h-6 w-6 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <div class="h-10 w-10 rounded-full bg-pantau-light/20 flex items-center justify-center">
+                                        <svg class="h-6 w-6 text-pantau-medium" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
                                         </svg>
@@ -121,7 +121,7 @@
                                 </div>
                             </div>
                             <div class="mt-6">
-                                <a href="{{ route('store.show', $store->slug) }}" class="w-full flex items-center justify-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-lg text-white bg-indigo-600 hover:bg-indigo-700 transition-colors">
+                                <a href="{{ route('store.show', $store->slug) }}" class="w-full flex items-center justify-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-lg text-white bg-pantau-medium hover:bg-pantau-dark transition-colors">
                                     Kunjungi Toko
                                 </a>
                             </div>
@@ -138,7 +138,7 @@
                         <p class="mt-2 text-base text-gray-500 max-w-sm mx-auto">Saat ini belum ada toko yang bergabung. Jadilah yang pertama membuka toko di platform kami!</p>
                         @guest
                         <div class="mt-8">
-                            <a href="{{ route('register') }}" class="inline-flex items-center px-6 py-3 border border-transparent shadow-sm text-base font-medium rounded-lg text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-colors">
+                            <a href="{{ route('register') }}" class="inline-flex items-center px-6 py-3 border border-transparent shadow-sm text-base font-medium rounded-lg text-white bg-pantau-medium hover:bg-pantau-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-pantau-medium transition-colors">
                                 <svg class="-ml-1 mr-3 h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
                                 </svg>

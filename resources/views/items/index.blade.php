@@ -30,7 +30,7 @@
                         
                         <!-- Category Filter -->
                         <div class="min-w-48">
-                            <select name="category" class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm w-full">
+                            <select name="category" class="border-gray-300 focus:border-pantau-medium focus:ring-pantau-medium rounded-md shadow-sm w-full">
                                 <option value="">All Categories</option>
                                 @foreach($categories as $category)
                                     <option value="{{ $category->id }}" {{ request('category') == $category->id ? 'selected' : '' }}>
@@ -50,7 +50,7 @@
 
                         <!-- Clear Filter -->
                         @if(request('search') || request('category'))
-                            <a href="{{ route('items.index') }}" class="inline-flex items-center px-4 py-2 bg-white border border-gray-300 rounded-md font-semibold text-xs text-gray-700 uppercase tracking-widest shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:opacity-25 transition ease-in-out duration-150">
+                            <a href="{{ route('items.index') }}" class="inline-flex items-center px-4 py-2 bg-white border border-gray-300 rounded-md font-semibold text-xs text-gray-700 uppercase tracking-widest shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-pantau-medium focus:ring-offset-2 disabled:opacity-25 transition ease-in-out duration-150">
                                 Clear
                             </a>
                         @endif
@@ -75,7 +75,7 @@
                                     </x-primary-button>
                                 </a>
                             @else
-                                <a href="{{ route('items.index') }}" class="inline-flex items-center px-4 py-2 bg-white border border-gray-300 rounded-md font-semibold text-xs text-gray-700 uppercase tracking-widest shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:opacity-25 transition ease-in-out duration-150">
+                                <a href="{{ route('items.index') }}" class="inline-flex items-center px-4 py-2 bg-white border border-gray-300 rounded-md font-semibold text-xs text-gray-700 uppercase tracking-widest shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-pantau-medium focus:ring-offset-2 disabled:opacity-25 transition ease-in-out duration-150">
                                     Clear Filters
                                 </a>
                             @endif

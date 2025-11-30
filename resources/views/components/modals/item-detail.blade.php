@@ -107,7 +107,7 @@
                 <button x-on:click="show = false" class="px-4 py-2 bg-white border border-gray-300 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-50">
                     Tutup
                 </button>
-                <button x-on:click="show = false; setTimeout(() => $dispatch('open-modal', { name: 'edit-item', item: item }), 300)" class="px-4 py-2 bg-indigo-600 border border-transparent rounded-md text-sm font-medium text-white hover:bg-indigo-700">
+                <button x-on:click="show = false; setTimeout(() => $dispatch('open-modal', { name: 'edit-item', item: item }), 300)" class="px-4 py-2 bg-pantau-medium border border-transparent rounded-md text-sm font-medium text-white hover:bg-pantau-dark">
                     Edit Barang
                 </button>
             </div>

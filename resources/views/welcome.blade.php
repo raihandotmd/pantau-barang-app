@@ -12,7 +12,7 @@
                     <h2 class="text-3xl font-extrabold text-gray-900">Katalog Produk</h2>
                     <p class="mt-2 text-gray-600">Koleksi produk yang tersedia di toko ini.</p>
                 </div>
-                <a href="{{ route('store.products', $store->slug) }}" class="hidden sm:flex items-center text-indigo-600 hover:text-indigo-500 font-medium">
+                <a href="{{ route('store.products', $store->slug) }}" class="hidden sm:flex items-center text-pantau-medium hover:text-pantau-dark font-medium">
                     Lihat Semua <span aria-hidden="true"> &rarr;</span>
                 </a>
             </div>
@@ -30,7 +30,7 @@
             </div>
             
             <div class="mt-12 text-center sm:hidden">
-                <a href="{{ route('store.products', $store->slug) }}" class="text-indigo-600 font-medium hover:text-indigo-500">Lihat Semua Produk &rarr;</a>
+                <a href="{{ route('store.products', $store->slug) }}" class="text-pantau-medium font-medium hover:text-pantau-dark">Lihat Semua Produk &rarr;</a>
             </div>
         </div>
     </div>

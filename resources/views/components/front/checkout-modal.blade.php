@@ -158,17 +158,17 @@ style="display: none;">
                                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                                     <div>
                                         <label class="block text-sm font-medium text-gray-700">Full Name</label>
-                                        <input type="text" x-model="form.customer_name" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+                                        <input type="text" x-model="form.customer_name" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-pantau-medium focus:ring-pantau-medium sm:text-sm">
                                     </div>
                                     <div>
                                         <label class="block text-sm font-medium text-gray-700">WhatsApp Number</label>
-                                        <input type="text" x-model="form.customer_phone" required placeholder="08..." class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+                                        <input type="text" x-model="form.customer_phone" required placeholder="08..." class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-pantau-medium focus:ring-pantau-medium sm:text-sm">
                                     </div>
                                 </div>
 
                                 <div>
                                     <label class="block text-sm font-medium text-gray-700">Address</label>
-                                    <textarea x-model="form.customer_address" rows="2" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"></textarea>
+                                    <textarea x-model="form.customer_address" rows="2" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-pantau-medium focus:ring-pantau-medium sm:text-sm"></textarea>
                                 </div>
 
                                 <div>
@@ -180,7 +180,7 @@ style="display: none;">
                                     <button type="submit" 
                                         :disabled="loading"
                                         :class="{ 'opacity-50 cursor-not-allowed': loading }"
-                                        class="inline-flex w-full justify-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 sm:col-start-2">
+                                        class="inline-flex w-full justify-center rounded-md bg-pantau-medium px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-pantau-light focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-pantau-medium sm:col-start-2">
                                         <span x-show="!loading">Place Order</span>
                                         <span x-show="loading">Processing...</span>
                                     </button>

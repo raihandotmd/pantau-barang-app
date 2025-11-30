@@ -28,7 +28,7 @@ x-on:open-modal.window="if ($event.detail.name === 'edit-category') { category =
             <button type="button" x-on:click="$dispatch('close')" class="px-4 py-2 bg-white border border-gray-300 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-50">
                 Batal
             </button>
-            <button type="submit" class="px-4 py-2 bg-indigo-600 border border-transparent rounded-md text-sm font-medium text-white hover:bg-indigo-700">
+            <button type="submit" class="px-4 py-2 bg-pantau-medium border border-transparent rounded-md text-sm font-medium text-white hover:bg-pantau-dark">
                 Simpan Perubahan
             </button>
         </div>

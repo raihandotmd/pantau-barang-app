@@ -17,8 +17,8 @@
                             <div class="text-gray-500 text-xs font-bold uppercase tracking-wider">Total Pengguna</div>
                             <div class="mt-2 text-3xl font-extrabold text-gray-900">{{ $totalUsers }}</div>
                         </div>
-                        <div class="p-3 bg-indigo-50 rounded-full">
-                            <svg class="w-8 h-8 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <div class="p-3 bg-pantau-sand/20 rounded-full">
+                            <svg class="w-8 h-8 text-pantau-medium" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path>
                             </svg>
                         </div>
@@ -32,8 +32,8 @@
                             <div class="text-gray-500 text-xs font-bold uppercase tracking-wider">Total Toko</div>
                             <div class="mt-2 text-3xl font-extrabold text-gray-900">{{ $totalStores }}</div>
                         </div>
-                        <div class="p-3 bg-blue-50 rounded-full">
-                            <svg class="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <div class="p-3 bg-pantau-sand/20 rounded-full">
+                            <svg class="w-8 h-8 text-pantau-medium" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
                             </svg>
                         </div>
@@ -79,14 +79,14 @@
                     <!-- Search and Filter -->
                     <div class="mb-6">
                         <form method="GET" action="{{ route('super-admin.dashboard') }}" class="flex gap-2">
-                            <input type="text" name="search" value="{{ request('search') }}" placeholder="Cari nama toko atau slug..." class="flex-1 rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
-                            <select name="status" class="rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+                            <input type="text" name="search" value="{{ request('search') }}" placeholder="Cari nama toko atau slug..." class="flex-1 rounded-md border-gray-300 shadow-sm focus:border-pantau-medium focus:ring-pantau-medium">
+                            <select name="status" class="rounded-md border-gray-300 shadow-sm focus:border-pantau-medium focus:ring-pantau-medium">
                                 <option value="all" {{ request('status') == 'all' || !request('status') ? 'selected' : '' }}>Semua Status</option>
                                 <option value="pending" {{ request('status') == 'pending' ? 'selected' : '' }}>Pending</option>
                                 <option value="active" {{ request('status') == 'active' ? 'selected' : '' }}>Active</option>
                                 <option value="rejected" {{ request('status') == 'rejected' ? 'selected' : '' }}>Rejected</option>
                             </select>
-                            <button type="submit" class="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 whitespace-nowrap">Cari</button>
+                            <button type="submit" class="px-4 py-2 bg-pantau-medium text-white rounded-md hover:bg-pantau-dark whitespace-nowrap">Cari</button>
                         </form>
                     </div>
 
@@ -124,7 +124,7 @@
                                         <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
                                             <div class="flex items-center space-x-3">
                                                 <!-- Detail Button -->
-                                                <button x-data @click="$dispatch('open-store-detail-{{ $store->id }}')" class="text-blue-600 hover:text-blue-900" title="Detail">
+                                                <button x-data @click="$dispatch('open-store-detail-{{ $store->id }}')" class="text-pantau-medium hover:text-pantau-dark" title="Detail">
                                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />

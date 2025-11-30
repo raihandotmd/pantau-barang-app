@@ -8,7 +8,7 @@
     <div class="py-12">
         <div class="max-w-4xl mx-auto sm:px-6 lg:px-8">
             <!-- Welcome Card -->
-            <div class="bg-gradient-to-r from-blue-500 to-purple-600 overflow-hidden shadow-lg sm:rounded-lg mb-8">
+            <div class="bg-gradient-to-r from-pantau-dark to-pantau-medium overflow-hidden shadow-lg sm:rounded-lg mb-8">
                 <div class="p-8 text-white">
                     <div class="flex items-center">
                         <div class="flex-shrink-0">
@@ -20,7 +20,7 @@
                         </div>
                         <div class="ml-6">
                             <h3 class="text-2xl font-bold">Welcome to Your Store Setup!</h3>
-                            <p class="text-blue-100 mt-2">Let's create your store and start managing your inventory.</p>
+                            <p class="text-pantau-sand mt-2">Let's create your store and start managing your inventory.</p>
                         </div>
                     </div>
                 </div>
@@ -36,7 +36,7 @@
                         <div>
                             <x-input-label for="name" :value="__('Store Name')" class="text-lg font-medium" />
                             <x-text-input id="name"
-                                class="block mt-2 w-full text-lg py-3 px-4 border-2 border-gray-300 rounded-xl focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all duration-200"
+                                class="block mt-2 w-full text-lg py-3 px-4 border-2 border-gray-300 rounded-xl focus:border-pantau-medium focus:ring-2 focus:ring-pantau-light/50 transition-all duration-200"
                                 type="text" name="name" :value="old('name')" required autofocus
                                 placeholder="Enter your store name" onkeyup="generateSlug()" />
                             <x-input-error :messages="$errors->get('name')" class="mt-2" />
@@ -56,7 +56,7 @@
                         <div>
                             <x-input-label for="slug" :value="__('Store URL Slug')" class="text-lg font-medium" />
                             <div
-                                class="mt-2 flex items-center bg-gray-50 border-2 border-gray-300 rounded-xl focus-within:border-blue-500 focus-within:ring-2 focus-within:ring-blue-200 transition-all duration-200">
+                                class="mt-2 flex items-center bg-gray-50 border-2 border-gray-300 rounded-xl focus-within:border-pantau-medium focus-within:ring-2 focus-within:ring-pantau-light/50 transition-all duration-200">
                                 <span class="px-4 py-3 text-gray-500 font-medium">your-domain.com/</span>
                                 <input id="slug" class="flex-1 py-3 px-2 bg-transparent border-0 focus:ring-0 text-lg"
                                     type="text" name="slug" value="{{ old('slug') }}" required placeholder="store-slug"
@@ -99,7 +99,7 @@
                         <div>
                             <x-input-label for="address" :value="__('Store Address')" class="text-lg font-medium" />
                             <textarea id="address"
-                                class="block mt-2 w-full text-lg py-3 px-4 border-2 border-gray-300 rounded-xl focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all duration-200 resize-none"
+                                class="block mt-2 w-full text-lg py-3 px-4 border-2 border-gray-300 rounded-xl focus:border-pantau-medium focus:ring-2 focus:ring-pantau-light/50 transition-all duration-200 resize-none"
                                 name="address" rows="3"
                                 placeholder="Enter your store's physical address (optional)">{{ old('address') }}</textarea>
                             <x-input-error :messages="$errors->get('address')" class="mt-2" />
@@ -111,7 +111,7 @@
                             <x-input-label for="description" :value="__('Store Description')"
                                 class="text-lg font-medium" />
                             <textarea id="description"
-                                class="block mt-2 w-full text-lg py-3 px-4 border-2 border-gray-300 rounded-xl focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all duration-200 resize-none"
+                                class="block mt-2 w-full text-lg py-3 px-4 border-2 border-gray-300 rounded-xl focus:border-pantau-medium focus:ring-2 focus:ring-pantau-light/50 transition-all duration-200 resize-none"
                                 name="description" rows="4"
                                 placeholder="Describe what your store sells, your business model, etc. (optional)">{{ old('description') }}</textarea>
                             <x-input-error :messages="$errors->get('description')" class="mt-2" />
@@ -119,18 +119,10 @@
                         </div>
 
                         <!-- Action Buttons -->
-                        <div class="flex items-center justify-between pt-6 border-t border-gray-200">
-                            <a href="{{ route('dashboard') }}"
-                                class="inline-flex items-center px-6 py-3 bg-gray-500 hover:bg-gray-600 text-white font-semibold rounded-xl transition-all duration-200 transform hover:scale-105">
-                                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
-                                </svg>
-                                Back to Dashboard
-                            </a>
+                        <div class="flex items-center justify-end pt-6 border-t border-gray-200">
 
                             <button type="submit"
-                                class="inline-flex items-center px-8 py-3 bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white font-semibold rounded-xl transition-all duration-200 transform hover:scale-105 shadow-lg">
+                                class="inline-flex items-center px-8 py-3 bg-pantau-medium hover:bg-pantau-dark text-white font-semibold rounded-xl transition-all duration-200 transform hover:scale-105 shadow-lg">
                                 <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                         d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-4m-5 0H3m2 0h4M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4">
@@ -144,26 +136,12 @@
             </div>
 
             <!-- Info Cards -->
-            <div class="grid md:grid-cols-3 gap-6 mt-8">
+            <div class="grid md:grid-cols-2 gap-6 mt-8">
                 <div class="bg-white p-6 rounded-xl shadow-md border border-gray-100">
                     <div class="flex items-center">
                         <div class="flex-shrink-0">
-                            <div class="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center">
-                                <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor"
-                                    viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                                </svg>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="bg-white p-6 rounded-xl shadow-md border border-gray-100">
-                    <div class="flex items-center">
-                        <div class="flex-shrink-0">
-                            <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center">
-                                <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor"
+                            <div class="w-10 h-10 bg-pantau-light/20 rounded-full flex items-center justify-center">
+                                <svg class="w-6 h-6 text-pantau-medium" fill="none" stroke="currentColor"
                                     viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                         d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z">
@@ -181,8 +159,8 @@
                 <div class="bg-white p-6 rounded-xl shadow-md border border-gray-100">
                     <div class="flex items-center">
                         <div class="flex-shrink-0">
-                            <div class="w-10 h-10 bg-purple-100 rounded-full flex items-center justify-center">
-                                <svg class="w-6 h-6 text-purple-600" fill="none" stroke="currentColor"
+                            <div class="w-10 h-10 bg-pantau-sand/30 rounded-full flex items-center justify-center">
+                                <svg class="w-6 h-6 text-pantau-dark" fill="none" stroke="currentColor"
                                     viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                         d="M13 10V3L4 14h7v7l9-11h-7z"></path>

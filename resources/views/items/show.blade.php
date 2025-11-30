@@ -31,7 +31,7 @@
                     <div class="flex items-center justify-between">
                         <div class="flex items-center">
                             <div class="flex-shrink-0">
-                                <div class="w-16 h-16 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full flex items-center justify-center">
+                                <div class="w-16 h-16 bg-gradient-to-r from-pantau-dark to-pantau-medium rounded-full flex items-center justify-center">
                                     <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path>
                                     </svg>
@@ -44,7 +44,7 @@
                                         <span class="text-gray-600">Code: {{ $item->code }}</span>
                                     @endif
                                     @if($item->category)
-                                        <span class="inline-flex px-3 py-1 text-sm font-medium bg-indigo-100 text-indigo-800 rounded-full">
+                                        <span class="inline-flex px-3 py-1 text-sm font-medium bg-pantau-light/20 text-pantau-dark rounded-full">
                                             {{ $item->category->name }}
                                         </span>
                                     @endif
@@ -68,17 +68,17 @@
 
                     <!-- Item Details Grid -->
                     <div class="mt-8 grid grid-cols-1 md:grid-cols-4 gap-6">
-                        <div class="bg-blue-50 rounded-lg p-4 text-center">
-                            <div class="text-3xl font-bold text-blue-600">{{ $item->quantity }}</div>
-                            <div class="text-sm text-blue-700">Stock Quantity</div>
+                        <div class="bg-pantau-sand/20 rounded-lg p-4 text-center">
+                            <div class="text-3xl font-bold text-pantau-medium">{{ $item->quantity }}</div>
+                            <div class="text-sm text-pantau-dark">Stock Quantity</div>
                         </div>
                         <div class="bg-yellow-50 rounded-lg p-4 text-center">
                             <div class="text-2xl font-bold text-yellow-600">Rp {{ number_format($item->price, 0, ',', '.') }}</div>
                             <div class="text-sm text-yellow-700">Unit Price</div>
                         </div>
-                        <div class="bg-purple-50 rounded-lg p-4 text-center">
-                            <div class="text-2xl font-bold text-purple-600">Rp {{ number_format($item->price * $item->quantity, 0, ',', '.') }}</div>
-                            <div class="text-sm text-purple-700">Total Value</div>
+                        <div class="bg-pantau-light/10 rounded-lg p-4 text-center">
+                            <div class="text-2xl font-bold text-pantau-medium">Rp {{ number_format($item->price * $item->quantity, 0, ',', '.') }}</div>
+                            <div class="text-sm text-pantau-dark">Total Value</div>
                         </div>
                     </div>
 

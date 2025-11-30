@@ -18,8 +18,8 @@
                     <div class="mb-6 flex flex-col sm:flex-row justify-between gap-4">
                         <div class="w-full sm:w-1/2">
                             <form method="GET" action="{{ route('super-admin.stores.index') }}" class="flex gap-2">
-                                <input type="text" name="search" value="{{ request('search') }}" placeholder="Cari nama toko atau slug..." class="w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
-                                <button type="submit" class="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700">Cari</button>
+                                <input type="text" name="search" value="{{ request('search') }}" placeholder="Cari nama toko atau slug..." class="w-full rounded-md border-gray-300 shadow-sm focus:border-pantau-medium focus:ring-pantau-medium">
+                                <button type="submit" class="px-4 py-2 bg-pantau-medium text-white rounded-md hover:bg-pantau-dark">Cari</button>
                             </form>
                         </div>
                         <div class="w-full sm:w-auto">
@@ -27,7 +27,7 @@
                                 @if(request('search'))
                                     <input type="hidden" name="search" value="{{ request('search') }}">
                                 @endif
-                                <select name="status" onchange="this.form.submit()" class="w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+                                <select name="status" onchange="this.form.submit()" class="w-full rounded-md border-gray-300 shadow-sm focus:border-pantau-medium focus:ring-pantau-medium">
                                     <option value="all" {{ request('status') == 'all' ? 'selected' : '' }}>Semua Status</option>
                                     <option value="pending" {{ request('status') == 'pending' ? 'selected' : '' }}>Pending</option>
                                     <option value="active" {{ request('status') == 'active' ? 'selected' : '' }}>Active</option>
@@ -71,7 +71,7 @@
                                         <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
                                             <div class="flex items-center space-x-3">
                                                 <!-- Detail Button -->
-                                                <button x-data @click="$dispatch('open-store-detail-{{ $store->id }}')" class="text-blue-600 hover:text-blue-900" title="Detail">
+                                                <button x-data @click="$dispatch('open-store-detail-{{ $store->id }}')" class="text-pantau-medium hover:text-pantau-dark" title="Detail">
                                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />

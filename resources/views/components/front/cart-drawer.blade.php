@@ -80,7 +80,7 @@
                                                         </div>
 
                                                         <div class="flex">
-                                                            <button type="button" @click="removeFromCart(item.id)" class="font-medium text-indigo-600 hover:text-indigo-500">Hapus</button>
+                                                            <button type="button" @click="removeFromCart(item.id)" class="font-medium text-pantau-medium hover:text-pantau-dark">Hapus</button>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -102,12 +102,12 @@
                             </div>
                             <p class="mt-0.5 text-sm text-gray-500">Ongkos kirim dihitung saat checkout.</p>
                             <div class="mt-6">
-                                <button @click="open = false; $dispatch('open-checkout')" class="flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700 transition-colors">Checkout</button>
+                                <button @click="open = false; $dispatch('open-checkout')" class="flex w-full items-center justify-center rounded-md border border-transparent bg-pantau-medium px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-pantau-dark transition-colors">Checkout</button>
                             </div>
                             <div class="mt-6 flex justify-center text-center text-sm text-gray-500">
                                 <p>
                                     atau
-                                    <button type="button" class="font-medium text-indigo-600 hover:text-indigo-500" @click="open = false">
+                                    <button type="button" class="font-medium text-pantau-medium hover:text-pantau-dark" @click="open = false">
                                         Lanjut Belanja
                                         <span aria-hidden="true"> &rarr;</span>
                                     </button>

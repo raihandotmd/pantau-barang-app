@@ -42,17 +42,17 @@
                         <div class="space-y-4">
                             <div>
                                 <label class="block text-sm font-medium text-gray-700">Name</label>
-                                <input type="text" name="customer_name" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+                                <input type="text" name="customer_name" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-pantau-medium focus:ring-pantau-medium">
                             </div>
 
                             <div>
                                 <label class="block text-sm font-medium text-gray-700">WhatsApp Number</label>
-                                <input type="text" name="customer_phone" required placeholder="0812..." class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+                                <input type="text" name="customer_phone" required placeholder="0812..." class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-pantau-medium focus:ring-pantau-medium">
                             </div>
 
                             <div>
                                 <label class="block text-sm font-medium text-gray-700">Full Address</label>
-                                <textarea name="customer_address" rows="3" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"></textarea>
+                                <textarea name="customer_address" rows="3" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-pantau-medium focus:ring-pantau-medium"></textarea>
                             </div>
 
                             <div>
@@ -65,7 +65,7 @@
                         </div>
 
                         <div class="mt-8">
-                            <button type="submit" class="w-full bg-indigo-600 text-white py-3 px-4 rounded-md hover:bg-indigo-700 font-bold shadow-lg transition-transform transform hover:scale-105">
+                            <button type="submit" class="w-full bg-pantau-medium text-white py-3 px-4 rounded-md hover:bg-pantau-dark font-bold shadow-lg transition-transform transform hover:scale-105">
                                 Place Order (COD)
                             </button>
                         </div>

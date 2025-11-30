@@ -47,7 +47,7 @@
         <div class="flex items-center justify-between mt-4 pt-4 border-t border-gray-100">
             <!-- View Button -->
             <a href="{{ route('items.show', $item) }}" 
-                class="text-indigo-600 hover:text-indigo-900 text-sm font-medium">
+                class="text-pantau-medium hover:text-pantau-dark text-sm font-medium">
                 View Details
             </a>
             

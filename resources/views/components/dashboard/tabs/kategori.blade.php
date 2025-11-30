@@ -7,7 +7,7 @@
             <p class="text-sm text-gray-500">Atur kategori barang Anda</p>
         </div>
         <div class="flex gap-2">
-            <button x-data="" x-on:click.prevent="$dispatch('open-modal', 'create-category')" class="bg-indigo-600 text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-indigo-700 flex items-center gap-2">
+            <button x-data="" x-on:click.prevent="$dispatch('open-modal', 'create-category')" class="bg-pantau-medium text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-pantau-dark flex items-center gap-2">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path></svg>
                 Buat Kategori
             </button>
@@ -20,11 +20,11 @@
             <input type="hidden" name="tab" value="kategori">
             
             <div class="relative flex-grow">
-                <input type="text" name="search_category" value="{{ request('search_category') }}" placeholder="Cari kategori..." class="w-full pl-10 pr-4 py-2 rounded-lg border border-gray-300 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500">
+                <input type="text" name="search_category" value="{{ request('search_category') }}" placeholder="Cari kategori..." class="w-full pl-10 pr-4 py-2 rounded-lg border border-gray-300 focus:border-pantau-medium focus:ring-1 focus:ring-pantau-medium">
                 <svg class="w-5 h-5 text-gray-400 absolute left-3 top-2.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
             </div>
             
-            <button type="submit" class="hidden sm:inline-block px-4 py-2 bg-indigo-600 text-white rounded-lg text-sm hover:bg-indigo-700">Cari</button>
+            <button type="submit" class="hidden sm:inline-block px-4 py-2 bg-pantau-medium text-white rounded-lg text-sm hover:bg-pantau-dark">Cari</button>
         </form>
     </div>
 
@@ -45,7 +45,7 @@
                         <td class="px-6 py-4 whitespace-nowrap text-gray-500">{{ $category->items_count }} Barang</td>
                         <td class="px-6 py-4 whitespace-nowrap text-gray-500">{{ $category->created_at->format('d M Y') }}</td>
                         <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                            <button x-data="" x-on:click.prevent="$dispatch('open-modal', { name: 'edit-category', category: {{ $category }} })" class="text-indigo-600 hover:text-indigo-900 mr-3">
+                            <button x-data="" x-on:click.prevent="$dispatch('open-modal', { name: 'edit-category', category: {{ $category }} })" class="text-pantau-medium hover:text-pantau-dark mr-3">
                                 <svg class="w-5 h-5 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg>
                             </button>
                             <form action="{{ route('categories.destroy', $category) }}" method="POST" class="inline" onsubmit="return confirm('Apakah Anda yakin?');">

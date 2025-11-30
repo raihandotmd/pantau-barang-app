@@ -7,7 +7,7 @@
             <div class="flex items-center space-x-2">
                 <!-- View Button -->
                 <a href="{{ route('categories.show', $category) }}" 
-                    class="text-indigo-600 hover:text-indigo-900 text-sm font-medium">
+                    class="text-pantau-medium hover:text-pantau-dark text-sm font-medium">
                     View
                 </a>
                 <!-- Edit Button -->

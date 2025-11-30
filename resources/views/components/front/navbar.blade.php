@@ -9,7 +9,7 @@
             <!-- Logo -->
             <div class="flex-shrink-0 flex items-center gap-3">
                 <a href="{{ route('store.show', $store->slug) }}" class="flex items-center gap-3">
-                    <div class="w-10 h-10 bg-indigo-600 rounded-lg flex items-center justify-center text-white font-bold text-xl shadow-lg">
+                    <div class="w-10 h-10 bg-pantau-medium rounded-lg flex items-center justify-center text-white font-bold text-xl shadow-lg">
                         PB
                     </div>
                     <span :class="{ 'text-gray-900': scrolled || !{{ $transparent ? 'true' : 'false' }}, 'text-white': !scrolled && {{ $transparent ? 'true' : 'false' }} }" class="font-bold text-xl tracking-tight transition-colors">
@@ -20,9 +20,9 @@
 
             <!-- Desktop Menu -->
             <div class="hidden md:flex items-center space-x-8">
-                <a href="{{ route('store.show', $store->slug) }}" :class="{ 'text-gray-600 hover:text-indigo-600': scrolled || !{{ $transparent ? 'true' : 'false' }}, 'text-white/90 hover:text-white': !scrolled && {{ $transparent ? 'true' : 'false' }} }" class="text-sm font-medium transition-colors">Beranda</a>
-                <a href="{{ route('store.products', $store->slug) }}" :class="{ 'text-gray-600 hover:text-indigo-600': scrolled || !{{ $transparent ? 'true' : 'false' }}, 'text-white/90 hover:text-white': !scrolled && {{ $transparent ? 'true' : 'false' }} }" class="text-sm font-medium transition-colors">Produk</a>
-                <a href="{{ route('store.profile', $store->slug) }}" :class="{ 'text-gray-600 hover:text-indigo-600': scrolled || !{{ $transparent ? 'true' : 'false' }}, 'text-white/90 hover:text-white': !scrolled && {{ $transparent ? 'true' : 'false' }} }" class="text-sm font-medium transition-colors">Profil Toko</a>
+                <a href="{{ route('store.show', $store->slug) }}" :class="{ 'text-gray-600 hover:text-pantau-medium': scrolled || !{{ $transparent ? 'true' : 'false' }}, 'text-white/90 hover:text-white': !scrolled && {{ $transparent ? 'true' : 'false' }} }" class="text-sm font-medium transition-colors">Beranda</a>
+                <a href="{{ route('store.products', $store->slug) }}" :class="{ 'text-gray-600 hover:text-pantau-medium': scrolled || !{{ $transparent ? 'true' : 'false' }}, 'text-white/90 hover:text-white': !scrolled && {{ $transparent ? 'true' : 'false' }} }" class="text-sm font-medium transition-colors">Produk</a>
+                <a href="{{ route('store.profile', $store->slug) }}" :class="{ 'text-gray-600 hover:text-pantau-medium': scrolled || !{{ $transparent ? 'true' : 'false' }}, 'text-white/90 hover:text-white': !scrolled && {{ $transparent ? 'true' : 'false' }} }" class="text-sm font-medium transition-colors">Profil Toko</a>
                 
                 <!-- Cart Button -->
                 <button @click="$dispatch('open-cart')" 

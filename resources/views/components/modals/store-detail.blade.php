@@ -91,7 +91,7 @@
                                 <span class="text-sm font-medium text-gray-700">Ubah Status:</span>
                                 <div class="relative flex items-center">
                                     <select x-model="newStatus" 
-                                        class="appearance-none bg-white border border-gray-300 text-gray-700 py-2 pl-3 pr-10 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm font-medium transition-shadow cursor-pointer hover:border-gray-400">
+                                        class="appearance-none bg-white border border-gray-300 text-gray-700 py-2 pl-3 pr-10 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-pantau-medium focus:border-pantau-medium sm:text-sm font-medium transition-shadow cursor-pointer hover:border-gray-400">
                                         <option value="pending">Pending</option>
                                         <option value="active">Active</option>
                                         <option value="rejected">Rejected</option>
@@ -104,14 +104,14 @@
                                     x-transition:enter-start="opacity-0 transform scale-95"
                                     x-transition:enter-end="opacity-100 transform scale-100"
                                     onclick="return confirm('Apakah Anda yakin ingin mengubah status toko ini?')" 
-                                    class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-lg text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 shadow-sm">
+                                    class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-lg text-white bg-pantau-medium hover:bg-pantau-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-pantau-medium shadow-sm">
                                     Simpan
                                 </button>
                             </div>
                         </form>
                     </div>
 
-                    <button type="button" @click="open = false" class="w-full sm:w-auto inline-flex justify-center items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-lg text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                    <button type="button" @click="open = false" class="w-full sm:w-auto inline-flex justify-center items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-lg text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-pantau-medium">
                         Tutup
                     </button>
                 </div>

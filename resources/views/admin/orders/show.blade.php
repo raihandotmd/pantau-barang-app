@@ -92,7 +92,7 @@
                                 
                                 <div>
                                     <label for="status" class="block text-sm font-medium text-gray-700">Update Status</label>
-                                    <select name="status" id="status" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+                                    <select name="status" id="status" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-pantau-medium focus:ring-pantau-medium">
                                         <option value="pending" {{ $order->status === 'pending' ? 'selected' : '' }}>Pending</option>
                                         <option value="accepted" {{ $order->status === 'accepted' ? 'selected' : '' }}>Accepted (Deduct Stock)</option>
                                         <option value="completed" {{ $order->status === 'completed' ? 'selected' : '' }}>Completed</option>
@@ -100,7 +100,7 @@
                                     </select>
                                 </div>
 
-                                <button type="submit" class="w-full inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                                <button type="submit" class="w-full inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-pantau-medium hover:bg-pantau-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-pantau-medium">
                                     Update Status
                                 </button>
                             </form>

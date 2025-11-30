@@ -14,6 +14,14 @@ export default {
             fontFamily: {
                 sans: ['Figtree', ...defaultTheme.fontFamily.sans],
             },
+            colors: {
+                pantau: {
+                    dark: '#1B3C53',
+                    medium: '#234C6A',
+                    light: '#456882',
+                    sand: '#D2C1B6',
+                },
+            },
         },
     },
 

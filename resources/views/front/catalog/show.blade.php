@@ -17,7 +17,7 @@
                         <div>
                             <div class="text-sm text-gray-500 mb-2">{{ $item->category->name }}</div>
                             <h1 class="text-3xl font-bold text-gray-900 mb-4">{{ $item->name }}</h1>
-                            <p class="text-2xl font-bold text-indigo-600 mb-6">Rp {{ number_format($item->price, 0, ',', '.') }}</p>
+                            <p class="text-2xl font-bold text-pantau-medium mb-6">Rp {{ number_format($item->price, 0, ',', '.') }}</p>
                             
                             <div class="prose max-w-none mb-8 text-gray-600">
                                 {{ $item->description }}
@@ -26,7 +26,7 @@
                             <div class="border-t pt-6">
                                 <form action="{{ route('cart.add', $item) }}" method="POST">
                                     @csrf
-                                    <button type="submit" class="w-full md:w-auto bg-indigo-600 text-white py-3 px-8 rounded-md hover:bg-indigo-700 font-bold shadow-lg transition-transform transform hover:scale-105">
+                                    <button type="submit" class="w-full md:w-auto bg-pantau-medium text-white py-3 px-8 rounded-md hover:bg-pantau-dark font-bold shadow-lg transition-transform transform hover:scale-105">
                                         Add to Cart
                                     </button>
                                 </form>

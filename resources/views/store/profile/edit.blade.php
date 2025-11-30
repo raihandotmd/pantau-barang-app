@@ -4,7 +4,7 @@
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
                 {{ __('Edit Profil Toko') }}
             </h2>
-            <a href="{{ route('dashboard') }}" class="inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150">
+            <a href="{{ route('dashboard') }}" class="inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-pantau-medium focus:ring-offset-2 transition ease-in-out duration-150">
                 {{ __('Kembali ke Dashboard') }}
             </a>
         </div>
@@ -63,7 +63,7 @@
                         <!-- Description -->
                         <div>
                             <x-input-label for="description" :value="__('Deskripsi (Opsional)')" />
-                            <textarea id="description" name="description" class="block mt-1 w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm" rows="4">{{ old('description', $store->description) }}</textarea>
+                            <textarea id="description" name="description" class="block mt-1 w-full border-gray-300 focus:border-pantau-medium focus:ring-pantau-medium rounded-md shadow-sm" rows="4">{{ old('description', $store->description) }}</textarea>
                             <x-input-error :messages="$errors->get('description')" class="mt-2" />
                         </div>
 
@@ -77,7 +77,7 @@
                         <!-- Address -->
                         <div>
                             <x-input-label for="address" :value="__('Alamat')" />
-                            <textarea id="address" name="address" class="block mt-1 w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm" rows="3" required>{{ old('address', $store->address) }}</textarea>
+                            <textarea id="address" name="address" class="block mt-1 w-full border-gray-300 focus:border-pantau-medium focus:ring-pantau-medium rounded-md shadow-sm" rows="3" required>{{ old('address', $store->address) }}</textarea>
                             <x-input-error :messages="$errors->get('address')" class="mt-2" />
                         </div>
 

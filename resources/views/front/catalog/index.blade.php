@@ -12,10 +12,10 @@
             <div class="mb-8 bg-white p-4 rounded-lg shadow-sm">
                 <form action="{{ route('catalog.index') }}" method="GET" class="flex flex-col md:flex-row gap-4">
                     <div class="flex-1">
-                        <input type="text" name="search" value="{{ request('search') }}" placeholder="Search items..." class="w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+                        <input type="text" name="search" value="{{ request('search') }}" placeholder="Search items..." class="w-full rounded-md border-gray-300 shadow-sm focus:border-pantau-medium focus:ring-pantau-medium">
                     </div>
                     <div class="w-full md:w-48">
-                        <select name="category" class="w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+                        <select name="category" class="w-full rounded-md border-gray-300 shadow-sm focus:border-pantau-medium focus:ring-pantau-medium">
                             <option value="">All Categories</option>
                             @foreach($categories as $category)
                                 <option value="{{ $category->id }}" {{ request('category') == $category->id ? 'selected' : '' }}>
@@ -24,7 +24,7 @@
                             @endforeach
                         </select>
                     </div>
-                    <button type="submit" class="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700">Filter</button>
+                    <button type="submit" class="px-4 py-2 bg-pantau-medium text-white rounded-md hover:bg-pantau-dark">Filter</button>
                 </form>
             </div>
 
@@ -44,7 +44,7 @@
                         <div class="p-4">
                             <div class="text-xs text-gray-500 mb-1">{{ $item->category->name }}</div>
                             <h3 class="text-lg font-semibold text-gray-900 mb-2">{{ $item->name }}</h3>
-                            <p class="text-indigo-600 font-bold mb-4">Rp {{ number_format($item->price, 0, ',', '.') }}</p>
+                            <p class="text-pantau-medium font-bold mb-4">Rp {{ number_format($item->price, 0, ',', '.') }}</p>
                             
                             <form action="{{ route('cart.add', $item) }}" method="POST">
                                 @csrf
@@ -69,7 +69,7 @@
     
     <!-- Floating Cart Button -->
     @if(session('cart') && count(session('cart')) > 0)
-        <a href="{{ route('cart.index') }}" class="fixed bottom-8 right-8 bg-indigo-600 text-white p-4 rounded-full shadow-lg hover:bg-indigo-700 transition-colors z-50 flex items-center gap-2">
+        <a href="{{ route('cart.index') }}" class="fixed bottom-8 right-8 bg-pantau-medium text-white p-4 rounded-full shadow-lg hover:bg-pantau-dark transition-colors z-50 flex items-center gap-2">
             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
             <span class="font-bold">{{ count(session('cart')) }}</span>
         </a>

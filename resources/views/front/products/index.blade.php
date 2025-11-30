@@ -14,13 +14,13 @@
                 <div class="mt-4 md:mt-0">
                     <form method="GET" action="{{ route('store.products', $store->slug) }}" class="flex flex-col sm:flex-row gap-4">
                         <div class="relative">
-                            <input type="text" name="search" value="{{ request('search') }}" placeholder="Cari produk..." class="w-full sm:w-64 rounded-lg border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 shadow-sm">
-                            <button type="submit" class="absolute right-0 top-0 h-full px-3 text-gray-400 hover:text-indigo-600">
+                            <input type="text" name="search" value="{{ request('search') }}" placeholder="Cari produk..." class="w-full sm:w-64 rounded-lg border-gray-300 focus:border-pantau-medium focus:ring-pantau-medium shadow-sm">
+                            <button type="submit" class="absolute right-0 top-0 h-full px-3 text-gray-400 hover:text-pantau-medium">
                                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
                             </button>
                         </div>
                         
-                        <select name="category" onchange="this.form.submit()" class="rounded-lg border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 shadow-sm">
+                        <select name="category" onchange="this.form.submit()" class="rounded-lg border-gray-300 focus:border-pantau-medium focus:ring-pantau-medium shadow-sm">
                             <option value="">Semua Kategori</option>
                             @foreach($categories as $category)
                                 <option value="{{ $category->id }}" {{ request('category') == $category->id ? 'selected' : '' }}>
@@ -37,19 +37,19 @@
                 <div class="flex items-center gap-2 mb-6">
                     <span class="text-sm text-gray-500">Filter aktif:</span>
                     @if(request('search'))
-                        <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-indigo-100 text-indigo-800">
+                        <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-pantau-light/20 text-pantau-dark">
                             Pencarian: "{{ request('search') }}"
-                            <a href="{{ route('store.products', ['slug' => $store->slug, 'category' => request('category')]) }}" class="ml-2 text-indigo-600 hover:text-indigo-900">&times;</a>
+                            <a href="{{ route('store.products', ['slug' => $store->slug, 'category' => request('category')]) }}" class="ml-2 text-pantau-medium hover:text-pantau-dark">&times;</a>
                         </span>
                     @endif
                     @if(request('category'))
                         @php $catName = $categories->find(request('category'))->name ?? 'Unknown'; @endphp
-                        <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-indigo-100 text-indigo-800">
+                        <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-pantau-light/20 text-pantau-dark">
                             Kategori: {{ $catName }}
-                            <a href="{{ route('store.products', ['slug' => $store->slug, 'search' => request('search')]) }}" class="ml-2 text-indigo-600 hover:text-indigo-900">&times;</a>
+                            <a href="{{ route('store.products', ['slug' => $store->slug, 'search' => request('search')]) }}" class="ml-2 text-pantau-medium hover:text-pantau-dark">&times;</a>
                         </span>
                     @endif
-                    <a href="{{ route('store.products', $store->slug) }}" class="text-sm text-gray-500 hover:text-indigo-600 underline">Reset Filter</a>
+                    <a href="{{ route('store.products', $store->slug) }}" class="text-sm text-gray-500 hover:text-pantau-medium underline">Reset Filter</a>
                 </div>
             @endif
 
@@ -64,7 +64,7 @@
                         </div>
                         <h3 class="text-lg font-medium text-gray-900">Tidak ada produk ditemukan</h3>
                         <p class="mt-1 text-gray-500">Coba ubah kata kunci pencarian atau filter kategori Anda.</p>
-                        <a href="{{ route('store.products', $store->slug) }}" class="mt-6 inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700">
+                        <a href="{{ route('store.products', $store->slug) }}" class="mt-6 inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-pantau-medium hover:bg-pantau-dark">
                             Lihat Semua Produk
                         </a>
                     </div>

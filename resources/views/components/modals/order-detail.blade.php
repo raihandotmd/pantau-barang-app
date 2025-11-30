@@ -136,7 +136,7 @@
                     @method('PATCH')
                     <div class="flex-1">
                         <label for="status" class="block text-sm font-medium text-gray-700 mb-1">Perbarui Status</label>
-                        <select name="status" id="status" class="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+                        <select name="status" id="status" class="block w-full rounded-md border-gray-300 shadow-sm focus:border-pantau-medium focus:ring-pantau-medium sm:text-sm">
                             <option value="pending" :selected="order?.status === 'pending'">Menunggu (Pending)</option>
                             <option value="accepted" :selected="order?.status === 'accepted'">Diterima (Accepted)</option>
                             <option value="completed" :selected="order?.status === 'completed'">Selesai (Completed)</option>
