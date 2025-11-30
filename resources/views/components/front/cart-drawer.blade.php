@@ -16,9 +16,10 @@
         x-transition:leave="ease-in-out duration-500"
         x-transition:leave-start="opacity-100"
         x-transition:leave-end="opacity-0"
+        @click="open = false"
         class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity backdrop-blur-sm"></div>
 
-    <div class="fixed inset-0 overflow-hidden">
+    <div class="fixed inset-0 overflow-hidden z-50 pointer-events-none">
         <div class="absolute inset-0 overflow-hidden">
             <div class="pointer-events-none fixed inset-y-0 right-0 flex max-w-full pl-10">
                 
@@ -35,11 +36,11 @@
                     <div class="flex h-full flex-col overflow-y-scroll bg-white shadow-xl">
                         <div class="flex-1 overflow-y-auto px-4 py-6 sm:px-6">
                             <div class="flex items-start justify-between">
-                                <h2 class="text-lg font-medium text-gray-900" id="slide-over-title">Shopping Cart</h2>
+                                <h2 class="text-lg font-medium text-gray-900" id="slide-over-title">Keranjang Belanja</h2>
                                 <div class="ml-3 flex h-7 items-center">
                                     <button type="button" @click="open = false" class="relative -m-2 p-2 text-gray-400 hover:text-gray-500">
                                         <span class="absolute -inset-0.5"></span>
-                                        <span class="sr-only">Close panel</span>
+                                        <span class="sr-only">Tutup panel</span>
                                         <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
                                             <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
                                         </svg>
@@ -72,10 +73,14 @@
                                                         <p class="mt-1 text-sm text-gray-500" x-text="item.category"></p>
                                                     </div>
                                                     <div class="flex flex-1 items-end justify-between text-sm">
-                                                        <p class="text-gray-500" x-text="'Qty ' + item.quantity"></p>
+                                                        <div class="flex items-center border border-gray-300 rounded-md">
+                                                            <button @click="updateCartQuantity(item.id, -1)" class="px-2 py-1 text-gray-600 hover:bg-gray-100 rounded-l-md transition-colors">-</button>
+                                                            <span class="px-2 py-1 text-gray-900 font-medium min-w-[2rem] text-center" x-text="item.quantity"></span>
+                                                            <button @click="updateCartQuantity(item.id, 1)" class="px-2 py-1 text-gray-600 hover:bg-gray-100 rounded-r-md transition-colors">+</button>
+                                                        </div>
 
                                                         <div class="flex">
-                                                            <button type="button" @click="removeFromCart(item.id)" class="font-medium text-indigo-600 hover:text-indigo-500">Remove</button>
+                                                            <button type="button" @click="removeFromCart(item.id)" class="font-medium text-indigo-600 hover:text-indigo-500">Hapus</button>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -83,7 +88,7 @@
                                         </template>
                                         
                                         <li x-show="cartCount === 0" class="py-12 text-center text-gray-500">
-                                            Your cart is empty.
+                                            Keranjang belanja Anda kosong.
                                         </li>
                                     </ul>
                                 </div>
@@ -95,15 +100,15 @@
                                 <p>Subtotal</p>
                                 <p x-text="'Rp ' + new Intl.NumberFormat('id-ID').format(cartTotal)"></p>
                             </div>
-                            <p class="mt-0.5 text-sm text-gray-500">Shipping and taxes calculated at checkout.</p>
+                            <p class="mt-0.5 text-sm text-gray-500">Ongkos kirim dihitung saat checkout.</p>
                             <div class="mt-6">
                                 <button @click="open = false; $dispatch('open-checkout')" class="flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700 transition-colors">Checkout</button>
                             </div>
                             <div class="mt-6 flex justify-center text-center text-sm text-gray-500">
                                 <p>
-                                    or
+                                    atau
                                     <button type="button" class="font-medium text-indigo-600 hover:text-indigo-500" @click="open = false">
-                                        Continue Shopping
+                                        Lanjut Belanja
                                         <span aria-hidden="true"> &rarr;</span>
                                     </button>
                                 </p>

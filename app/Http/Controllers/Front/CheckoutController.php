@@ -82,6 +82,34 @@ class CheckoutController extends Controller
         }
     }
 
+    public function updateCart(Request $request)
+    {
+        if($request->id && $request->quantity) {
+            $cart = session()->get('cart');
+            if(isset($cart[$request->id])) {
+                $cart[$request->id]['quantity'] = $request->quantity;
+                
+                // If quantity is 0 or less, remove item
+                if ($cart[$request->id]['quantity'] <= 0) {
+                    unset($cart[$request->id]);
+                }
+                
+                session()->put('cart', $cart);
+            }
+            
+            if ($request->wantsJson()) {
+                return response()->json([
+                    'success' => true,
+                    'message' => 'Cart updated.',
+                    'cart_count' => count($cart),
+                    'cart' => $cart
+                ]);
+            }
+            
+            return redirect()->back()->with('success', 'Cart updated.');
+        }
+    }
+
     public function store(Request $request)
     {
         $request->validate([

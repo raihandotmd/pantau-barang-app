@@ -16,6 +16,7 @@ class StoreController extends Controller
         $items = Items::where('store_id', $store->id)
             ->where('quantity', '>', 0)
             ->latest()
+            ->take(4)
             ->get();
 
         return view('welcome', compact('store', 'items'));

@@ -70,6 +70,34 @@
                 });
             },
 
+            updateCartQuantity(itemId, change) {
+                let currentQty = this.cart[itemId].quantity;
+                let newQty = currentQty + change;
+                
+                if (newQty < 1) {
+                    this.removeFromCart(itemId);
+                    return;
+                }
+
+                fetch(`/cart/update`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': document.querySelector('meta[name=csrf-token]').content,
+                        'Accept': 'application/json'
+                    },
+                    body: JSON.stringify({ id: itemId, quantity: newQty })
+                })
+                .then(res => res.json())
+                .then(data => {
+                    if(data.success) {
+                        this.cart = data.cart;
+                        this.cartCount = data.cart_count;
+                        this.updateTotal();
+                    }
+                });
+            },
+
             updateTotal() {
                 this.cartTotal = Object.values(this.cart).reduce((acc, item) => acc + (item.price * item.quantity), 0);
             },

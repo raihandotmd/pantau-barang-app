@@ -71,6 +71,7 @@ Route::middleware(['auth', IsSuperAdmin::class])->prefix('super-admin')->name('s
 // Frontend Routes (Public)
 Route::get('/cart', [\App\Http\Controllers\Front\CheckoutController::class, 'index'])->name('cart.index');
 Route::post('/cart/add/{item}', [\App\Http\Controllers\Front\CheckoutController::class, 'addToCart'])->name('cart.add');
+Route::post('/cart/update', [\App\Http\Controllers\Front\CheckoutController::class, 'updateCart'])->name('cart.update');
 Route::post('/cart/remove', [\App\Http\Controllers\Front\CheckoutController::class, 'removeFromCart'])->name('cart.remove');
 Route::post('/checkout', [\App\Http\Controllers\Front\CheckoutController::class, 'store'])->name('checkout.store');
 

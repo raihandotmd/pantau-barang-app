@@ -131,7 +131,7 @@
 
             <!-- Status Update -->
             <div class="mb-6 bg-blue-50 p-4 rounded-lg border border-blue-100">
-                <form :action="'/admin/orders/' + order?.id + '/status'" method="POST" class="flex items-end gap-4">
+                <form :action="'/orders/' + order?.id + '/status'" method="POST" class="flex items-end gap-4">
                     @csrf
                     @method('PATCH')
                     <div class="flex-1">
