@@ -3,7 +3,12 @@
     <div class="py-12" x-data="{ 
         activeTab: '{{ request('tab', 'inventaris') }}',
         init() {
+            // Sync URL when tab changes
             this.$watch('activeTab', value => {
+                const url = new URL(window.location);
+                url.searchParams.set('tab', value);
+                window.history.pushState({}, '', url);
+
                 if (value === 'laporan') {
                     setTimeout(() => {
                         if (window.dashboardMap) {
@@ -13,6 +18,15 @@
                             }
                         }
                     }, 100);
+                }
+            });
+
+            // Handle browser back/forward buttons
+            window.addEventListener('popstate', () => {
+                const urlParams = new URLSearchParams(window.location.search);
+                const tab = urlParams.get('tab');
+                if (tab) {
+                    this.activeTab = tab;
                 }
             });
         }

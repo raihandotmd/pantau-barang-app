@@ -118,7 +118,7 @@ class ItemController extends Controller
 
             DB::commit();
 
-            return redirect()->route('dashboard')->with('success', 'Item created successfully!');
+            return redirect()->route('dashboard', ['tab' => 'inventaris'])->with('success', 'Item created successfully!');
 
         } catch (\Exception $e) {
             DB::rollback();
@@ -212,7 +212,7 @@ class ItemController extends Controller
 
             DB::commit();
 
-            return redirect()->route('dashboard')->with('success', 'Item updated successfully!');
+            return redirect()->route('dashboard', ['tab' => 'inventaris'])->with('success', 'Item updated successfully!');
 
         } catch (\Exception $e) {
             DB::rollback();
@@ -245,7 +245,7 @@ class ItemController extends Controller
 
             DB::commit();
 
-            return redirect()->route('dashboard')->with('success', 'Item deleted successfully!');
+            return redirect()->route('dashboard', ['tab' => 'inventaris'])->with('success', 'Item deleted successfully!');
 
         } catch (\Exception $e) {
             DB::rollback();

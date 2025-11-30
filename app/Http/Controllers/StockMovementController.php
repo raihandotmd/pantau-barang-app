@@ -116,7 +116,7 @@ class StockMovementController extends Controller
 
             DB::commit();
 
-            return redirect()->route('dashboard')->with('success', 'Stock movement recorded successfully!');
+            return redirect()->route('dashboard', ['tab' => 'riwayat'])->with('success', 'Stock movement recorded successfully!');
 
         } catch (\Exception $e) {
             DB::rollback();

@@ -111,7 +111,7 @@ class OrderController extends Controller
             $this->logActivity('order_status_updated', "Order #{$order->id} status changed from {$oldStatus} to {$newStatus}");
 
             DB::commit();
-            return back()->with('success', 'Order status updated successfully.');
+            return redirect()->route('dashboard', ['tab' => 'pesanan'])->with('success', 'Order status updated successfully.');
 
         } catch (\Exception $e) {
             DB::rollback();
