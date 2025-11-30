@@ -11,13 +11,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Middleware\CheckStoreStatus;
 use App\Http\Middleware\IsSuperAdmin;
 
-Route::get('/', function () {
-    $store = \App\Models\Stores::first();
-    if ($store) {
-        return redirect()->route('store.show', $store->slug);
-    }
-    return abort(404);
-});
+Route::get('/', [\App\Http\Controllers\LandingController::class, 'index'])->name('landing');
 
 Route::get('/dashboard', [DashboardController::class, 'index'])
     ->middleware(['auth', 'has.store', CheckStoreStatus::class])
