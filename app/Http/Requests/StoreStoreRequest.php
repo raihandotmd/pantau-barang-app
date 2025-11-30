@@ -35,6 +35,7 @@ class StoreStoreRequest extends FormRequest
             'description' => ['nullable', 'string', 'max:1000'],
             'latitude' => ['required', 'numeric', 'between:-90,90'],
             'longitude' => ['required', 'numeric', 'between:-180,180'],
+            'banner_image' => ['nullable', 'image', 'max:2048'],
         ];
     }
 

@@ -38,6 +38,11 @@ class StoreController extends Controller
         try {
             DB::beginTransaction();
 
+            $bannerPath = null;
+            if ($request->hasFile('banner_image')) {
+                $bannerPath = $request->file('banner_image')->store('stores', 'public');
+            }
+
             // Create the store
             $store = Stores::create([
                 'name' => $request->name,
@@ -47,6 +52,7 @@ class StoreController extends Controller
                 'description' => $request->description,
                 'location' => Point::make($request->longitude, $request->latitude),
                 'status' => 'pending',
+                'banner_image' => $bannerPath,
             ]);
 
             // Update user's store_id

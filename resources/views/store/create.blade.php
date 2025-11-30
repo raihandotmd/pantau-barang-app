@@ -29,7 +29,7 @@
             <!-- Main Form Card -->
             <div class="bg-white overflow-hidden shadow-lg sm:rounded-lg">
                 <div class="p-8">
-                    <form method="POST" action="{{ route('store.store') }}" class="space-y-6">
+                    <form method="POST" action="{{ route('store.store') }}" class="space-y-6" enctype="multipart/form-data">
                         @csrf
 
                         <!-- Store Name -->
@@ -41,6 +41,15 @@
                                 placeholder="Enter your store name" onkeyup="generateSlug()" />
                             <x-input-error :messages="$errors->get('name')" class="mt-2" />
                             <p class="text-sm text-gray-500 mt-1">This will be the main name of your store</p>
+                        </div>
+
+                        <!-- Banner Image -->
+                        <div>
+                            <x-input-label for="banner_image" :value="__('Store Banner')" class="text-lg font-medium" />
+                            <input id="banner_image" type="file" name="banner_image" accept="image/*"
+                                class="block mt-2 w-full text-lg py-2 px-4 border-2 border-gray-300 rounded-xl focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all duration-200 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100" />
+                            <x-input-error :messages="$errors->get('banner_image')" class="mt-2" />
+                            <p class="text-sm text-gray-500 mt-1">Optional: Upload a banner image for your store (Recommended size: 1200x400)</p>
                         </div>
 
                         <!-- Store Slug -->
