@@ -8,12 +8,14 @@
         <div class="flex justify-between items-center h-20">
             <!-- Logo -->
             <div class="flex-shrink-0 flex items-center gap-3">
-                <div class="w-10 h-10 bg-indigo-600 rounded-lg flex items-center justify-center text-white font-bold text-xl shadow-lg">
-                    PB
-                </div>
-                <span :class="{ 'text-gray-900': scrolled || !{{ $transparent ? 'true' : 'false' }}, 'text-white': !scrolled && {{ $transparent ? 'true' : 'false' }} }" class="font-bold text-xl tracking-tight transition-colors">
-                    Pantau Barang
-                </span>
+                <a href="{{ route('store.show', $store->slug) }}" class="flex items-center gap-3">
+                    <div class="w-10 h-10 bg-indigo-600 rounded-lg flex items-center justify-center text-white font-bold text-xl shadow-lg">
+                        PB
+                    </div>
+                    <span :class="{ 'text-gray-900': scrolled || !{{ $transparent ? 'true' : 'false' }}, 'text-white': !scrolled && {{ $transparent ? 'true' : 'false' }} }" class="font-bold text-xl tracking-tight transition-colors">
+                        Pantau Barang
+                    </span>
+                </a>
             </div>
 
             <!-- Desktop Menu -->

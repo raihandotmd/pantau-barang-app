@@ -38,7 +38,7 @@ class StoreStarterSeeder extends Seeder
             'address' => 'Jl. Jend. Sudirman No. Kav 1, Jakarta Pusat',
             'description' => 'Official store providing high quality spare parts and accessories.',
             'location' => Point::make(106.8456, -6.2088), // Longitude, Latitude
-            'status' => 'approved', // Important: Must be approved to be visible
+            'status' => 'active', // Important: Must be active to be visible
         ]);
 
         // 3. Link User to Store
@@ -66,6 +66,7 @@ class StoreStarterSeeder extends Seeder
                 'category' => 'Oil & Fluids',
                 'price' => 85000,
                 'quantity' => 50,
+                'image' => 'items/placeholder.png',
             ],
             [
                 'name' => 'Michelin Pilot Street 120/70-17',
@@ -110,6 +111,7 @@ class StoreStarterSeeder extends Seeder
                 'price' => $itemData['price'],
                 'quantity' => $itemData['quantity'],
                 'store_id' => $store->id,
+                'image' => $itemData['image'] ?? null,
             ]);
 
             // Initial Stock Movement

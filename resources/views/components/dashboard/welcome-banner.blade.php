@@ -9,7 +9,7 @@
             Anda adalah bagian dari ekosistem platform multi-vendor Pantau Barang. Kelola toko, produk, dan pesanan Anda dengan mudah melalui dashboard ini.
         </p>
         <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-blue-600 text-white">
-            Status: {{ $status === 'approved' ? 'Aktif' : 'Tidak Aktif' }}
+            Status: {{ $status === 'active' ? 'Aktif' : 'Tidak Aktif' }}
         </span>
     </div>
 </div>

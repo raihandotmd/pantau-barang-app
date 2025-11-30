@@ -92,7 +92,7 @@
                             @endif
                             <div class="absolute top-0 right-0 m-4">
                                 <span class="inline-flex items-center px-3 py-0.5 rounded-full text-sm font-medium bg-green-100 text-green-800 shadow-sm">
-                                    {{ $store->status == 'approved' ? 'Buka' : 'Menunggu' }}
+                                    {{ $store->status == 'active' ? 'Buka' : 'Menunggu' }}
                                 </span>
                             </div>
                         </div>

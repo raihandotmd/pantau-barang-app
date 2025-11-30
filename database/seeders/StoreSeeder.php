@@ -39,7 +39,7 @@ class StoreSeeder extends Seeder
             'address' => 'Jl. Jend. Sudirman No. Kav 1, Jakarta Pusat',
             'description' => 'Official store providing high quality spare parts and accessories.',
             'location' => Point::make(106.8456, -6.2088), // Longitude, Latitude
-            'status' => 'approved', // Important: Must be approved to be visible
+            'status' => 'active', // Important: Must be active to be visible
         ]);
 
         // 3. Link User to Store

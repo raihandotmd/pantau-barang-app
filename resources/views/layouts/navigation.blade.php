@@ -6,7 +6,7 @@
                 <!-- Logo and Dashboard Title -->
                 <div class="shrink-0 flex items-center">
                     <a href="{{ route('dashboard') }}">
-                        <x-application-logo class="block h-9 w-auto fill-current text-gray-800" />
+                        <x-application-logo class="w-10 h-10 text-xl" />
                     </a>
                     <span class="ml-3 font-semibold text-xl text-gray-800 leading-tight">
                         @if(Auth::user()->is_super_admin)

@@ -11,7 +11,7 @@ class StoreController extends Controller
 {
     public function show($slug)
     {
-        $store = Stores::where('slug', $slug)->firstOrFail();
+        $store = Stores::where('slug', $slug)->where('status', 'active')->firstOrFail();
         
         $items = Items::where('store_id', $store->id)
             ->where('quantity', '>', 0)
@@ -24,7 +24,7 @@ class StoreController extends Controller
 
     public function products(Request $request, $slug)
     {
-        $store = Stores::where('slug', $slug)->firstOrFail();
+        $store = Stores::where('slug', $slug)->where('status', 'active')->firstOrFail();
         
         $query = Items::where('store_id', $store->id)
             ->where('quantity', '>', 0);
@@ -47,7 +47,7 @@ class StoreController extends Controller
 
     public function profile($slug)
     {
-        $store = Stores::where('slug', $slug)->firstOrFail();
+        $store = Stores::where('slug', $slug)->where('status', 'active')->firstOrFail();
         return view('front.store-profile', compact('store'));
     }
 }

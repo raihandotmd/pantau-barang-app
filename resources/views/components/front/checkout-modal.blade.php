@@ -12,27 +12,83 @@
         if (this.map) return;
         
         setTimeout(() => {
-            this.map = L.map('checkout-map').setView([-6.200000, 106.816666], 13);
-            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                attribution: '© OpenStreetMap contributors'
-            }).addTo(this.map);
+            if (!this.map) {
+                this.map = L.map('checkout-map').setView([-6.200000, 106.816666], 13);
+                L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                    attribution: '© OpenStreetMap contributors'
+                }).addTo(this.map);
 
-            this.map.on('click', (e) => {
-                const { lat, lng } = e.latlng;
-                if (this.marker) this.map.removeLayer(this.marker);
-                this.marker = L.marker([lat, lng]).addTo(this.map);
-                this.form.latitude = lat;
-                this.form.longitude = lng;
-            });
-
-            // Try to get user location
-            if (navigator.geolocation) {
-                navigator.geolocation.getCurrentPosition((position) => {
-                    const { latitude, longitude } = position.coords;
-                    this.map.setView([latitude, longitude], 15);
+                this.map.on('click', (e) => {
+                    const { lat, lng } = e.latlng;
+                    if (this.marker) this.map.removeLayer(this.marker);
+                    this.marker = L.marker([lat, lng]).addTo(this.map);
+                    this.form.latitude = lat;
+                    this.form.longitude = lng;
                 });
+
+                // Add Geocoder Control
+                if (L.Control.geocoder) {
+                    L.Control.geocoder({
+                        defaultMarkGeocode: false
+                    })
+                    .on('markgeocode', (e) => {
+                        const bbox = e.geocode.bbox;
+                        const poly = L.polygon([
+                            bbox.getSouthEast(),
+                            bbox.getNorthEast(),
+                            bbox.getNorthWest(),
+                            bbox.getSouthWest()
+                        ]).addTo(this.map);
+                        this.map.fitBounds(poly.getBounds());
+                        
+                        const { lat, lng } = e.geocode.center;
+                        if (this.marker) this.map.removeLayer(this.marker);
+                        this.marker = L.marker([lat, lng]).addTo(this.map);
+                        this.form.latitude = lat;
+                        this.form.longitude = lng;
+                        this.form.customer_address = e.geocode.name;
+                    })
+                    .addTo(this.map);
+                }
+
+                // Add Locate Control
+                if (L.control.locate) {
+                    L.control.locate({
+                        position: 'topleft',
+                        setView: 'untilPan',
+                        flyTo: true,
+                        strings: {
+                            title: 'Show me where I am'
+                        },
+                        locateOptions: {
+                            enableHighAccuracy: true
+                        }
+                    }).addTo(this.map);
+                }
+
+                // Listen for location found event from Locate Control
+                this.map.on('locationfound', (e) => {
+                    const { lat, lng } = e.latlng;
+                    if (this.marker) this.map.removeLayer(this.marker);
+                    this.marker = L.marker([lat, lng]).addTo(this.map);
+                    this.form.latitude = lat;
+                    this.form.longitude = lng;
+                });
+
+                // Try to get user location initially if not using the control
+                if (navigator.geolocation) {
+                    navigator.geolocation.getCurrentPosition((position) => {
+                        const { latitude, longitude } = position.coords;
+                        // Only set view if not already set by user interaction
+                        if (!this.form.latitude) {
+                            this.map.setView([latitude, longitude], 15);
+                        }
+                    });
+                }
+            } else {
+                this.map.invalidateSize();
             }
-        }, 100);
+        }, 300);
     },
     submitOrder() {
         this.loading = true;

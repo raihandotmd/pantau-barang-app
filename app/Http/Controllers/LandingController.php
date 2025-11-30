@@ -12,8 +12,7 @@ class LandingController extends Controller
      */
     public function index()
     {
-        // Fetch all stores, ordered by name
-        // You might want to filter by 'status' => 'approved' if you have that column
+        // Fetch        $stores = Stores::where('status', 'active')->get();
         $stores = Stores::orderBy('name')->get();
 
         return view('landing', compact('stores'));

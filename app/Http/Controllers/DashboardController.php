@@ -14,6 +14,10 @@ class DashboardController extends Controller
 {
     public function index(Request $request)
     {
+        if (Auth::user()->is_super_admin) {
+            return redirect()->route('super-admin.dashboard');
+        }
+
         if (!Auth::user()->store_id) {
             return redirect()->route('store.create');
         }

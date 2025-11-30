@@ -24,10 +24,15 @@
             <div>
                 <h3 class="text-lg font-bold text-white mb-6">Tautan</h4>
                 <ul class="space-y-4">
+                    <li>
+                        <a href="{{ route('landing') }}" class="inline-flex items-center gap-2 text-indigo-200 hover:text-white transition-colors">
+                            Platform PantauBarang
+                        </a>
+                    </li>
                     @auth
                         <li>
                             <a href="{{ route('dashboard') }}" class="inline-flex items-center gap-2 text-indigo-200 hover:text-white transition-colors">
-                                Dashboard Toko
+                                Dasbor Toko
                             </a>
                         </li>
                         <li>

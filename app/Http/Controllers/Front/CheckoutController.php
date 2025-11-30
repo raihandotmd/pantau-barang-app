@@ -41,7 +41,7 @@ class CheckoutController extends Controller
                 'name' => $item->name,
                 'price' => $item->price,
                 'quantity' => 1,
-                'image' => $item->image_path,
+                'image' => $item->image,
                 'category' => $item->category->name ?? 'Uncategorized'
             ];
         }
