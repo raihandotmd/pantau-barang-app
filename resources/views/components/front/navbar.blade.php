@@ -1,6 +1,6 @@
 @props(['store', 'transparent' => true])
 
-<nav x-data="{ scrolled: false }" 
+<nav x-data="{ scrolled: false, mobileMenuOpen: false }" 
     @scroll.window="scrolled = (window.pageYOffset > 20)"
     :class="{ 'bg-white/80 backdrop-blur-md shadow-sm': scrolled || !{{ $transparent ? 'true' : 'false' }}, 'bg-transparent': !scrolled && {{ $transparent ? 'true' : 'false' }} }"
     class="fixed w-full z-50 transition-all duration-300 top-0">
@@ -47,6 +47,32 @@
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
                     </svg>
+                </button>
+            </div>
+        </div>
+    </div>
+    <!-- Mobile Menu -->
+    <div x-show="mobileMenuOpen" 
+        x-transition:enter="transition ease-out duration-200"
+        x-transition:enter-start="opacity-0 -translate-y-2"
+        x-transition:enter-end="opacity-100 translate-y-0"
+        x-transition:leave="transition ease-in duration-150"
+        x-transition:leave-start="opacity-100 translate-y-0"
+        x-transition:leave-end="opacity-0 -translate-y-2"
+        class="md:hidden bg-white shadow-lg absolute w-full top-20 left-0 border-t border-gray-100"
+        @click.away="mobileMenuOpen = false">
+        <div class="px-4 pt-2 pb-4 space-y-1">
+            <a href="{{ route('store.show', $store->slug) }}" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-pantau-medium hover:bg-gray-50">Beranda</a>
+            <a href="{{ route('store.products', $store->slug) }}" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-pantau-medium hover:bg-gray-50">Produk</a>
+            <a href="{{ route('store.profile', $store->slug) }}" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-pantau-medium hover:bg-gray-50">Profil Toko</a>
+            
+            <div class="border-t border-gray-100 my-2 pt-2">
+                <button @click="$dispatch('open-cart'); mobileMenuOpen = false" class="flex w-full items-center px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-pantau-medium hover:bg-gray-50">
+                    <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path>
+                    </svg>
+                    Keranjang
+                    <span x-show="cartCount > 0" class="ml-auto bg-red-500 text-white text-xs font-bold px-2 py-0.5 rounded-full" x-text="cartCount"></span>
                 </button>
             </div>
         </div>

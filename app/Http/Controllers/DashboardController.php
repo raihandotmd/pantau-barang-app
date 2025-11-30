@@ -126,8 +126,9 @@ class DashboardController extends Controller
             });
 
         // Total Revenue (Sum of completed orders)
+        // Total Revenue (Sum of completed and accepted orders)
         $totalRevenue = \App\Models\Order::where('store_id', $storeId)
-            ->where('status', 'completed')
+            ->whereIn('status', ['completed', 'accepted'])
             ->sum('total_amount');
 
         // Items with Search and Filter
