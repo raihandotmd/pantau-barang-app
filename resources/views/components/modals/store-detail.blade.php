@@ -28,6 +28,11 @@
 
                 <!-- Modal Body -->
                 <div class="px-6 py-6">
+                    @if($store->banner_image)
+                        <div class="mb-6 rounded-xl overflow-hidden h-48 w-full relative">
+                            <img src="{{ Storage::url($store->banner_image) }}" alt="{{ $store->name }} Banner" class="w-full h-full object-cover">
+                        </div>
+                    @endif
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
                         <!-- Left Column: Details -->
                         <div class="space-y-4">

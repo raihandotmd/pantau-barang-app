@@ -12,8 +12,7 @@ class LandingController extends Controller
      */
     public function index()
     {
-        // Fetch        $stores = Stores::where('status', 'active')->get();
-        $stores = Stores::orderBy('name')->get();
+        $stores = Stores::where('status', 'active')->orderBy('name')->get();
 
         return view('landing', compact('stores'));
     }
