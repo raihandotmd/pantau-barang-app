@@ -1,7 +1,7 @@
 <x-guest-layout>
     <x-slot name="hideLogo">true</x-slot>
     
-    <div class="flex flex-col items-center justify-center text-center">
+    <div class="flex flex-col items-center justify-center text-center w-full">
         <!-- Cross Icon -->
         <div class="mb-6 bg-red-50 p-4 rounded-full">
             <svg class="w-16 h-16 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -18,14 +18,14 @@
             {{ __('Maaf, pengajuan toko Anda ditolak. Silakan perbaiki data toko Anda dan ajukan ulang untuk ditinjau kembali.') }}
         </div>
 
-        <div class="flex flex-col gap-3 w-full max-w-xs">
-            <a href="{{ route('store-profile.edit') }}" class="inline-flex justify-center items-center px-4 py-2 bg-pantau-medium border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-pantau-dark focus:bg-pantau-dark active:bg-pantau-dark focus:outline-none focus:ring-2 focus:ring-pantau-medium focus:ring-offset-2 transition ease-in-out duration-150">
+        <div class="flex flex-col gap-3 w-full">
+            <a href="{{ route('store-profile.edit') }}" class="inline-flex justify-center items-center px-4 py-3 bg-pantau-medium border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-pantau-dark focus:bg-pantau-dark active:bg-pantau-dark focus:outline-none focus:ring-2 focus:ring-pantau-medium focus:ring-offset-2 transition ease-in-out duration-150 w-full">
                 {{ __('Perbaiki & Ajukan Ulang') }}
             </a>
 
             <form method="POST" action="{{ route('logout') }}" class="w-full">
                 @csrf
-                <button type="submit" class="w-full inline-flex justify-center items-center px-4 py-2 bg-white border border-gray-300 rounded-md font-semibold text-xs text-gray-700 uppercase tracking-widest shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-pantau-medium focus:ring-offset-2 disabled:opacity-25 transition ease-in-out duration-150">
+                <button type="submit" class="w-full inline-flex justify-center items-center px-4 py-3 bg-white border border-gray-300 rounded-md font-semibold text-xs text-gray-700 uppercase tracking-widest shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-pantau-medium focus:ring-offset-2 disabled:opacity-25 transition ease-in-out duration-150">
                     {{ __('Keluar') }}
                 </button>
             </form>

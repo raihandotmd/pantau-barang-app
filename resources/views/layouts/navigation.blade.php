@@ -90,6 +90,12 @@
                     {{ __('Profile') }}
                 </x-responsive-nav-link>
 
+                @if(Auth::user()->hasStore())
+                    <x-responsive-nav-link :href="route('store-profile.edit')">
+                        {{ __('Profil Toko') }}
+                    </x-responsive-nav-link>
+                @endif
+
                 <!-- Authentication -->
                 <form method="POST" action="{{ route('logout') }}">
                     @csrf

@@ -1,6 +1,6 @@
 <x-app-layout>
 
-    <div class="py-12" x-data="{ 
+    <div class="py-12 px-6" x-data="{ 
         activeTab: '{{ request('tab', 'inventaris') }}',
         init() {
             // Sync URL when tab changes

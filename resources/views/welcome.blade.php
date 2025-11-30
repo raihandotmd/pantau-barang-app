@@ -17,7 +17,7 @@
                 </a>
             </div>
 
-            <div class="grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
+            <div class="grid grid-cols-2 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
                 @forelse($items as $item)
                     <x-front.product-card :item="$item" />
                 @empty
@@ -30,7 +30,9 @@
             </div>
             
             <div class="mt-12 text-center sm:hidden">
-                <a href="{{ route('store.products', $store->slug) }}" class="text-pantau-medium font-medium hover:text-pantau-dark">Lihat Semua Produk &rarr;</a>
+                <a href="{{ route('store.products', $store->slug) }}" class="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-pantau-medium hover:bg-pantau-dark w-full shadow-sm transition-colors">
+                    Lihat Semua Produk <span aria-hidden="true" class="ml-2">&rarr;</span>
+                </a>
             </div>
         </div>
     </div>
