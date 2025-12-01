@@ -104,7 +104,9 @@
             window.addEventListener('resize', function() {
                 map.invalidateSize();
             });
+
         });
+    </script>
     @endpush
 
     <!-- Modals -->
