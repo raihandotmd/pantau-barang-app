@@ -112,37 +112,56 @@ View logs if something goes wrong:
 docker compose -f docker-compose.prod.yml logs -f
 ```
 
-## 6. Automatic HTTPS with Caddy
+## 6. HTTPS with Host Nginx + Certbot
 
-This setup includes Caddy as a reverse proxy which **automatically manages SSL certificates** for you.
+Since we are running the app on port `8000`, we will set up Nginx on the host machine to act as a reverse proxy and handle SSL.
 
-### 1. Configure Domain
-
-1.  Open `deployment/Caddyfile`:
-    ```bash
-    nano deployment/Caddyfile
-    ```
-2.  Replace the placeholder domain and email:
-
-    ```caddy
-    {
-        email your-email@example.com
-    }
-
-    your-domain.com {
-        reverse_proxy app:80
-        ...
-    }
-    ```
-
-### 2. Apply Changes
-
-Re-run the deployment command to start the new Caddy container:
+**1. Install Nginx:**
 
 ```bash
-docker compose -f docker-compose.prod.yml up -d
+sudo apt update
+sudo apt install nginx
 ```
 
-### 3. Verify
+**2. Configure Nginx:**
+Create a new config file:
 
-Visit `https://your-domain.com`. It should load securely with a valid certificate.
+```bash
+sudo nano /etc/nginx/sites-available/pantau
+```
+
+Paste this content (replace `your-domain.com`):
+
+```nginx
+server {
+    server_name your-domain.com;
+
+    location / {
+        proxy_pass http://localhost:8000;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+    }
+}
+```
+
+**3. Enable Site:**
+
+```bash
+sudo ln -s /etc/nginx/sites-available/pantau /etc/nginx/sites-enabled/
+sudo rm /etc/nginx/sites-enabled/default
+sudo nginx -t
+sudo systemctl restart nginx
+```
+
+**4. Secure with SSL (Certbot):**
+
+```bash
+sudo apt install certbot python3-certbot-nginx
+sudo certbot --nginx -d your-domain.com
+```
+
+```
+
+```

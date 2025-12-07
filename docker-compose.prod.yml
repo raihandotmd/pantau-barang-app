@@ -6,8 +6,8 @@ services:
     image: pantaubarang-app:latest
     container_name: pantaubarang-app
     restart: unless-stopped
-    expose:
-      - "80"
+    ports:
+      - "8000:80"
     environment:
       APP_NAME: "Pantau Barang"
       APP_ENV: production
@@ -31,22 +31,6 @@ services:
     networks:
       - pantau-network
 
-  caddy:
-    image: caddy:2-alpine
-    container_name: pantaubarang-caddy
-    restart: unless-stopped
-    ports:
-      - "80:80"
-      - "443:443"
-    volumes:
-      - ./deployment/Caddyfile:/etc/caddy/Caddyfile
-      - caddy_data:/data
-      - caddy_config:/config
-    depends_on:
-      - app
-    networks:
-      - pantau-network
-
   db:
     image: postgis/postgis:15-3.3
     container_name: pantaubarang-db
@@ -66,5 +50,3 @@ networks:
 
 volumes:
   pgdata:
-  caddy_data:
-  caddy_config:
