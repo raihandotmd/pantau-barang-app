@@ -1,0 +1,20 @@
+{
+    # Global options
+    email your-email@example.com
+}
+
+your-domain.com {
+    # Proxy all variables to the app container on port 80
+    reverse_proxy app:80
+
+    # Compression for performance
+    encode gzip
+
+    # Basic security headers
+    header {
+        Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
+        X-Content-Type-Options "nosniff"
+        X-Frame-Options "DENY"
+        Referrer-Policy "strict-origin-when-cross-origin"
+    }
+}

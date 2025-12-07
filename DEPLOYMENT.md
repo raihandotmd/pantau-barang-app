@@ -112,23 +112,37 @@ View logs if something goes wrong:
 docker compose -f docker-compose.prod.yml logs -f
 ```
 
-## 6. (Optional) SSL with Certbot
+## 6. Automatic HTTPS with Caddy
 
-To serve your app over HTTPS, you should install Nginx on the host machine as a reverse proxy, or use a tool like Caddy or Traefik.
+This setup includes Caddy as a reverse proxy which **automatically manages SSL certificates** for you.
 
-**Simple Host Nginx Proxy Setup:**
+### 1. Configure Domain
 
-1.  Install host Nginx: `sudo apt install nginx`
-2.  Create config: `sudo nano /etc/nginx/sites-available/pantau`
-    ```nginx
-    server {
-        server_name your-domain.com;
-        location / {
-            proxy_pass http://localhost:8000;
-            proxy_set_header Host $host;
-            proxy_set_header X-Real-IP $remote_addr;
-        }
+1.  Open `deployment/Caddyfile`:
+    ```bash
+    nano deployment/Caddyfile
+    ```
+2.  Replace the placeholder domain and email:
+
+    ```caddy
+    {
+        email your-email@example.com
+    }
+
+    your-domain.com {
+        reverse_proxy app:80
+        ...
     }
     ```
-3.  Enable: `sudo ln -s /etc/nginx/sites-available/pantau /etc/nginx/sites-enabled/` and `sudo service nginx restart`
-4.  Get SSL: `sudo apt install certbot python3-certbot-nginx` then `sudo certbot --nginx`
+
+### 2. Apply Changes
+
+Re-run the deployment command to start the new Caddy container:
+
+```bash
+docker compose -f docker-compose.prod.yml up -d
+```
+
+### 3. Verify
+
+Visit `https://your-domain.com`. It should load securely with a valid certificate.

@@ -6,13 +6,13 @@ services:
     image: pantaubarang-app:latest
     container_name: pantaubarang-app
     restart: unless-stopped
-    ports:
-      - "8000:80"
+    expose:
+      - "80"
     environment:
       APP_NAME: "Pantau Barang"
       APP_ENV: production
       APP_DEBUG: "false"
-      APP_URL: "http://localhost:8000"
+      APP_URL: "https://${DOMAIN_NAME:-localhost}"
       LOG_CHANNEL: stderr
       DB_CONNECTION: pgsql
       DB_HOST: db
@@ -28,6 +28,22 @@ services:
       SESSION_LIFETIME: 120
     depends_on:
       - db
+    networks:
+      - pantau-network
+
+  caddy:
+    image: caddy:2-alpine
+    container_name: pantaubarang-caddy
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./deployment/Caddyfile:/etc/caddy/Caddyfile
+      - caddy_data:/data
+      - caddy_config:/config
+    depends_on:
+      - app
     networks:
       - pantau-network
 
@@ -50,3 +66,5 @@ networks:
 
 volumes:
   pgdata:
+  caddy_data:
+  caddy_config:
