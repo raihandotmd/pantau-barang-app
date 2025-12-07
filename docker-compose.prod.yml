@@ -1,0 +1,52 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: pantaubarang-app:latest
+    container_name: pantaubarang-app
+    restart: unless-stopped
+    ports:
+      - "8000:80"
+    environment:
+      APP_NAME: "Pantau Barang"
+      APP_ENV: production
+      APP_DEBUG: "false"
+      APP_URL: "http://localhost:8000"
+      LOG_CHANNEL: stderr
+      DB_CONNECTION: pgsql
+      DB_HOST: db
+      DB_PORT: 5432
+      DB_DATABASE: pantau_barang
+      DB_USERNAME: pantau_user
+      DB_PASSWORD: pantau_password
+      BROADCAST_DRIVER: log
+      CACHE_DRIVER: file
+      FILESYSTEM_DISK: local
+      QUEUE_CONNECTION: sync
+      SESSION_DRIVER: file
+      SESSION_LIFETIME: 120
+    depends_on:
+      - db
+    networks:
+      - pantau-network
+
+  db:
+    image: postgis/postgis:15-3.3
+    container_name: pantaubarang-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: pantau_barang
+      POSTGRES_USER: pantau_user
+      POSTGRES_PASSWORD: pantau_password
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    networks:
+      - pantau-network
+
+networks:
+  pantau-network:
+    driver: bridge
+
+volumes:
+  pgdata:
