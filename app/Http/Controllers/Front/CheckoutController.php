@@ -13,26 +13,53 @@ use Illuminate\Support\Facades\DB;
 
 class CheckoutController extends Controller
 {
-    public function index(Request $request)
+    /**
+     * Get store by slug or fail
+     */
+    private function getStore(string $slug): Stores
     {
-        // Simple Cart Implementation using Session
-        $cart = session()->get('cart', []);
-        
-        if (empty($cart)) {
-            return redirect()->route('catalog.index')->with('info', 'Your cart is empty.');
-        }
+        return Stores::where('slug', $slug)
+            ->where('status', 'active')
+            ->firstOrFail();
+    }
 
-        $store = Stores::first(); // Assuming single store context
+    /**
+     * Get cart key for store-specific cart
+     */
+    private function getCartKey(int $storeId): string
+    {
+        return "cart.{$storeId}";
+    }
+
+    public function index(Request $request, string $slug)
+    {
+        $store = $this->getStore($slug);
+        $cart = session()->get($this->getCartKey($store->id), []);
+
+        if (empty($cart)) {
+            return redirect()->route('store.products', $slug)->with('info', 'Your cart is empty.');
+        }
 
         return view('front.checkout.index', compact('cart', 'store'));
     }
 
-    public function addToCart(Request $request, Items $item)
+    public function addToCart(Request $request, string $slug, Items $item)
     {
-        $cart = session()->get('cart', []);
-        
+        $store = $this->getStore($slug);
+
+        // Verify item belongs to this store
+        if ($item->store_id !== $store->id) {
+            if ($request->wantsJson()) {
+                return response()->json(['success' => false, 'message' => 'Item not found in this store.'], 404);
+            }
+            return redirect()->back()->with('error', 'Item not found in this store.');
+        }
+
+        $cartKey = $this->getCartKey($store->id);
+        $cart = session()->get($cartKey, []);
+
         $id = $item->id;
-        
+
         if (isset($cart[$id])) {
             $cart[$id]['quantity']++;
         } else {
@@ -45,9 +72,9 @@ class CheckoutController extends Controller
                 'category' => $item->category->name ?? 'Uncategorized'
             ];
         }
-        
-        session()->put('cart', $cart);
-        
+
+        session()->put($cartKey, $cart);
+
         if ($request->wantsJson()) {
             return response()->json([
                 'success' => true,
@@ -60,15 +87,18 @@ class CheckoutController extends Controller
         return redirect()->back()->with('success', 'Item added to cart!');
     }
 
-    public function removeFromCart(Request $request)
+    public function removeFromCart(Request $request, string $slug)
     {
-        if($request->id) {
-            $cart = session()->get('cart');
-            if(isset($cart[$request->id])) {
+        $store = $this->getStore($slug);
+        $cartKey = $this->getCartKey($store->id);
+
+        if ($request->id) {
+            $cart = session()->get($cartKey, []);
+            if (isset($cart[$request->id])) {
                 unset($cart[$request->id]);
-                session()->put('cart', $cart);
+                session()->put($cartKey, $cart);
             }
-            
+
             if ($request->wantsJson()) {
                 return response()->json([
                     'success' => true,
@@ -82,21 +112,24 @@ class CheckoutController extends Controller
         }
     }
 
-    public function updateCart(Request $request)
+    public function updateCart(Request $request, string $slug)
     {
-        if($request->id && $request->quantity) {
-            $cart = session()->get('cart');
-            if(isset($cart[$request->id])) {
+        $store = $this->getStore($slug);
+        $cartKey = $this->getCartKey($store->id);
+
+        if ($request->id && $request->quantity) {
+            $cart = session()->get($cartKey, []);
+            if (isset($cart[$request->id])) {
                 $cart[$request->id]['quantity'] = $request->quantity;
-                
+
                 // If quantity is 0 or less, remove item
                 if ($cart[$request->id]['quantity'] <= 0) {
                     unset($cart[$request->id]);
                 }
-                
-                session()->put('cart', $cart);
+
+                session()->put($cartKey, $cart);
             }
-            
+
             if ($request->wantsJson()) {
                 return response()->json([
                     'success' => true,
@@ -105,13 +138,16 @@ class CheckoutController extends Controller
                     'cart' => $cart
                 ]);
             }
-            
+
             return redirect()->back()->with('success', 'Cart updated.');
         }
     }
 
-    public function store(Request $request)
+    public function store(Request $request, string $slug)
     {
+        $store = $this->getStore($slug);
+        $cartKey = $this->getCartKey($store->id);
+
         $request->validate([
             'customer_name' => 'required|string|max:255',
             'customer_phone' => 'required|string|max:20',
@@ -120,27 +156,25 @@ class CheckoutController extends Controller
             'longitude' => 'nullable|numeric',
         ]);
 
-        $cart = session()->get('cart');
+        $cart = session()->get($cartKey, []);
         if (empty($cart)) {
             if ($request->wantsJson()) {
                 return response()->json(['success' => false, 'message' => 'Cart is empty.'], 400);
             }
-            return redirect()->route('catalog.index')->with('error', 'Cart is empty.');
+            return redirect()->route('store.products', $slug)->with('error', 'Cart is empty.');
         }
-
-        $store = Stores::first();
 
         try {
             DB::beginTransaction();
 
-            // Create Order
+            // Create Order with correct store_id
             $order = new Order();
             $order->store_id = $store->id;
             $order->customer_name = $request->customer_name;
             $order->customer_phone = $request->customer_phone;
             $order->customer_address = $request->customer_address;
             $order->status = 'pending';
-            
+
             // Handle Location if provided
             if ($request->latitude && $request->longitude) {
                 $order->location = Point::make($request->longitude, $request->latitude);
@@ -152,7 +186,7 @@ class CheckoutController extends Controller
                 $total += $item['price'] * $item['quantity'];
             }
             $order->total_amount = $total;
-            
+
             $order->save();
 
             // Create Order Items
@@ -165,28 +199,28 @@ class CheckoutController extends Controller
                 ]);
             }
 
-            // Clear Cart
-            session()->forget('cart');
+            // Clear Cart for this store only
+            session()->forget($cartKey);
 
             DB::commit();
 
             if ($request->wantsJson()) {
                 return response()->json([
-                    'success' => true, 
+                    'success' => true,
                     'message' => 'Order placed successfully! We will contact you shortly.',
                     'order_id' => $order->id
                 ]);
             }
 
-            return redirect()->route('catalog.index')->with('success', 'Order placed successfully! We will contact you shortly.');
+            return redirect()->route('store.show', $slug)->with('success', 'Order placed successfully! We will contact you shortly.');
 
         } catch (\Exception $e) {
             DB::rollback();
-            
+
             if ($request->wantsJson()) {
                 return response()->json(['success' => false, 'message' => 'Failed to place order: ' . $e->getMessage()], 500);
             }
-            
+
             return back()->with('error', 'Failed to place order: ' . $e->getMessage());
         }
     }

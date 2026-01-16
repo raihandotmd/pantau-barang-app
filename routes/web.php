@@ -23,20 +23,20 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-    // Store routes - only need has.store, not verify.store (creating new store)
-    Route::middleware(['auth', 'has.store'])->group(function () {
-        Route::get('/store/create', [StoreController::class, 'create'])->name('store.create')->withoutMiddleware(['has.store', 'verify.store']);
-        Route::post('/store', [StoreController::class, 'store'])->name('store.store')->withoutMiddleware(['has.store', 'verify.store']);
-        Route::post('/store/generate-slug', [StoreController::class, 'generateSlug'])->name('store.generate-slug')->withoutMiddleware(['has.store', 'verify.store']);
-        
-        // Pending route
-        Route::get('/store/pending', [\App\Http\Controllers\StoreController::class, 'pending'])->name('store.pending')->withoutMiddleware(['verify.store']);
-        Route::get('/store/rejected', [\App\Http\Controllers\StoreController::class, 'rejected'])->name('store.rejected')->withoutMiddleware(['verify.store']);
-    });
+// Store routes - only need has.store, not verify.store (creating new store)
+Route::middleware(['auth', 'has.store'])->group(function () {
+    Route::get('/store/create', [StoreController::class, 'create'])->name('store.create')->withoutMiddleware(['has.store', 'verify.store']);
+    Route::post('/store', [StoreController::class, 'store'])->name('store.store')->withoutMiddleware(['has.store', 'verify.store']);
+    Route::post('/store/generate-slug', [StoreController::class, 'generateSlug'])->name('store.generate-slug')->withoutMiddleware(['has.store', 'verify.store']);
 
-    // Category routes
-    Route::middleware(['auth', 'has.store', 'verify.store'])->group(function () {
-        Route::resource('categories', CategoryController::class)->middleware(CheckStoreStatus::class);
+    // Pending route
+    Route::get('/store/pending', [\App\Http\Controllers\StoreController::class, 'pending'])->name('store.pending')->withoutMiddleware(['verify.store']);
+    Route::get('/store/rejected', [\App\Http\Controllers\StoreController::class, 'rejected'])->name('store.rejected')->withoutMiddleware(['verify.store']);
+});
+
+// Category routes
+Route::middleware(['auth', 'has.store', 'verify.store'])->group(function () {
+    Route::resource('categories', CategoryController::class)->middleware(CheckStoreStatus::class);
 
     // Item routes
     Route::resource('items', ItemController::class)->middleware(CheckStoreStatus::class);
@@ -62,12 +62,12 @@ Route::middleware(['auth', IsSuperAdmin::class])->prefix('super-admin')->name('s
     Route::patch('/stores/{store}/reject', [\App\Http\Controllers\SuperAdmin\StoreController::class, 'reject'])->name('stores.reject');
 });
 
-// Frontend Routes (Public)
-Route::get('/cart', [\App\Http\Controllers\Front\CheckoutController::class, 'index'])->name('cart.index');
-Route::post('/cart/add/{item}', [\App\Http\Controllers\Front\CheckoutController::class, 'addToCart'])->name('cart.add');
-Route::post('/cart/update', [\App\Http\Controllers\Front\CheckoutController::class, 'updateCart'])->name('cart.update');
-Route::post('/cart/remove', [\App\Http\Controllers\Front\CheckoutController::class, 'removeFromCart'])->name('cart.remove');
-Route::post('/checkout', [\App\Http\Controllers\Front\CheckoutController::class, 'store'])->name('checkout.store');
+// Frontend Routes (Public) - Store-specific cart/checkout
+Route::get('/{slug}/cart', [\App\Http\Controllers\Front\CheckoutController::class, 'index'])->name('cart.index');
+Route::post('/{slug}/cart/add/{item}', [\App\Http\Controllers\Front\CheckoutController::class, 'addToCart'])->name('cart.add');
+Route::post('/{slug}/cart/update', [\App\Http\Controllers\Front\CheckoutController::class, 'updateCart'])->name('cart.update');
+Route::post('/{slug}/cart/remove', [\App\Http\Controllers\Front\CheckoutController::class, 'removeFromCart'])->name('cart.remove');
+Route::post('/{slug}/checkout', [\App\Http\Controllers\Front\CheckoutController::class, 'store'])->name('checkout.store');
 
 require __DIR__ . '/auth.php';
 

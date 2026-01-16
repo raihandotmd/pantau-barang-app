@@ -1,42 +1,48 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="scroll-smooth">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="csrf-token" content="{{ csrf_token() }}">
 
-        <title>{{ config('app.name', 'Pantau Barang') }}</title>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
-        <!-- Fonts -->
-        <link rel="preconnect" href="https://fonts.bunny.net">
-        <link href="https://fonts.bunny.net/css?family=instrument-sans:400,500,600,700" rel="stylesheet" />
-        
-        <!-- Leaflet CSS -->
-        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-        <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css" />
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet.locatecontrol/dist/L.Control.Locate.min.css" />
+    <title>{{ config('app.name', 'Pantau Barang') }}</title>
 
-        <!-- Scripts -->
-        @vite(['resources/css/app.css', 'resources/js/app.js'])
-        <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
-        <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-        <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/leaflet.locatecontrol/dist/L.Control.Locate.min.js" charset="utf-8"></script>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.bunny.net">
+    <link href="https://fonts.bunny.net/css?family=instrument-sans:400,500,600,700" rel="stylesheet" />
 
-        <style>
-            [x-cloak] { display: none !important; }
-        </style>
-        @stack('styles')
-    </head>
-    <body class="font-sans antialiased text-gray-900 bg-gray-50"
-        x-data="{
-            cart: {{ json_encode(session('cart', [])) }},
-            cartCount: {{ count(session('cart', [])) }},
-            cartTotal: {{ array_reduce(session('cart', []), function($carry, $item) { return $carry + ($item['price'] * $item['quantity']); }, 0) }},
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet.locatecontrol/dist/L.Control.Locate.min.css" />
+
+    <!-- Scripts -->
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/leaflet.locatecontrol/dist/L.Control.Locate.min.js"
+        charset="utf-8"></script>
+
+    <style>
+        [x-cloak] {
+            display: none !important;
+        }
+    </style>
+    @stack('styles')
+</head>
+
+<body class="font-sans antialiased text-gray-900 bg-gray-50" x-data="{
+            storeSlug: '{{ $store->slug ?? '' }}',
+            cart: {{ json_encode(session('cart.' . ($store->id ?? 0), [])) }},
+            cartCount: {{ count(session('cart.' . ($store->id ?? 0), [])) }},
+            cartTotal: {{ array_reduce(session('cart.' . ($store->id ?? 0), []), function ($carry, $item) {
+    return $carry + ($item['price'] * $item['quantity']); }, 0) }},
             mobileMenuOpen: false,
             
             addToCart(itemId) {
-                fetch(`/cart/add/${itemId}`, {
+                fetch(`/${this.storeSlug}/cart/add/${itemId}`, {
                     method: 'POST',
                     headers: {
                         'X-CSRF-TOKEN': document.querySelector('meta[name=csrf-token]').content,
@@ -55,7 +61,7 @@
             },
             
             removeFromCart(itemId) {
-                fetch(`/cart/remove`, {
+                fetch(`/${this.storeSlug}/cart/remove`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -83,7 +89,7 @@
                     return;
                 }
 
-                fetch(`/cart/update`, {
+                fetch(`/${this.storeSlug}/cart/update`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -114,12 +120,13 @@
             }
         }">
 
-        {{ $slot }}
+    {{ $slot }}
 
-        <!-- Components -->
-        <x-front.cart-drawer />
-        <x-front.checkout-modal />
-        
-        @stack('scripts')
-    </body>
+    <!-- Components -->
+    <x-front.cart-drawer :store="$store ?? null" />
+    <x-front.checkout-modal :store="$store ?? null" />
+
+    @stack('scripts')
+</body>
+
 </html>
