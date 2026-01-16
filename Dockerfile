@@ -44,6 +44,7 @@ COPY --from=frontend /app/public/build ./public/build
 # Copy deployment config
 COPY deployment/nginx.conf /etc/nginx/sites-available/default
 COPY deployment/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+COPY deployment/php.ini /usr/local/etc/php/conf.d/custom.ini
 COPY deployment/entrypoint.sh /usr/local/bin/start-container
 
 # Install PHP dependencies (no dev)
