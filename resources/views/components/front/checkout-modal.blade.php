@@ -3,7 +3,7 @@
 <div x-data="{ 
     open: false,
     loading: false,
-    storeSlug: '{{ $store->slug ?? '' }}',
+    storeSlug: '{{ $store->slug ?? '' }}' || window.location.pathname.split('/')[1] || '',
     form: {
         customer_name: '',
         customer_phone: '',

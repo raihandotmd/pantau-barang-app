@@ -34,7 +34,7 @@
 </head>
 
 <body class="font-sans antialiased text-gray-900 bg-gray-50" x-data="{
-            storeSlug: '{{ $store->slug ?? '' }}',
+            storeSlug: '{{ $store->slug ?? '' }}' || window.location.pathname.split('/')[1] || '',
             cart: {{ json_encode(session('cart.' . ($store->id ?? 0), [])) }},
             cartCount: {{ count(session('cart.' . ($store->id ?? 0), [])) }},
             cartTotal: {{ array_reduce(session('cart.' . ($store->id ?? 0), []), function ($carry, $item) {
@@ -42,6 +42,10 @@
             mobileMenuOpen: false,
             
             addToCart(itemId) {
+                if (!this.storeSlug) {
+                    alert('Store not found. Please refresh the page.');
+                    return;
+                }
                 fetch(`/${this.storeSlug}/cart/add/${itemId}`, {
                     method: 'POST',
                     headers: {

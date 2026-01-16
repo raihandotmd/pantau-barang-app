@@ -30,8 +30,8 @@ Route::middleware(['auth', 'has.store'])->group(function () {
     Route::post('/store/generate-slug', [StoreController::class, 'generateSlug'])->name('store.generate-slug')->withoutMiddleware(['has.store', 'verify.store']);
 
     // Pending route
-    Route::get('/store/pending', [\App\Http\Controllers\StoreController::class, 'pending'])->name('store.pending')->withoutMiddleware(['verify.store']);
-    Route::get('/store/rejected', [\App\Http\Controllers\StoreController::class, 'rejected'])->name('store.rejected')->withoutMiddleware(['verify.store']);
+    Route::get('/store/pending', [StoreController::class, 'pending'])->name('store.pending')->withoutMiddleware(['verify.store']);
+    Route::get('/store/rejected', [StoreController::class, 'rejected'])->name('store.rejected')->withoutMiddleware(['verify.store']);
 });
 
 // Category routes
