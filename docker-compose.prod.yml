@@ -8,24 +8,14 @@ services:
     restart: unless-stopped
     ports:
       - "8000:80"
+    env_file:
+      - .env
     environment:
-      APP_NAME: "Pantau Barang"
-      APP_ENV: production
-      APP_DEBUG: "false"
-      APP_URL: "https://${DOMAIN_NAME:-localhost}"
-      LOG_CHANNEL: stderr
-      DB_CONNECTION: pgsql
+      # Override specific vars for Docker context
       DB_HOST: db
       DB_PORT: 5432
-      DB_DATABASE: pantau_barang
-      DB_USERNAME: pantau_user
-      DB_PASSWORD: pantau_password
-      BROADCAST_DRIVER: log
-      CACHE_DRIVER: file
-      FILESYSTEM_DISK: local
-      QUEUE_CONNECTION: sync
-      SESSION_DRIVER: file
-      SESSION_LIFETIME: 120
+      DB_CONNECTION: pgsql
+      LOG_CHANNEL: stderr
     depends_on:
       - db
     networks:
@@ -36,9 +26,9 @@ services:
     container_name: pantaubarang-db
     restart: unless-stopped
     environment:
-      POSTGRES_DB: pantau_barang
-      POSTGRES_USER: pantau_user
-      POSTGRES_PASSWORD: pantau_password
+      POSTGRES_DB: ${DB_DATABASE:-pantau_barang}
+      POSTGRES_USER: ${DB_USERNAME:-pantau_user}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-pantau_password}
     volumes:
       - pgdata:/var/lib/postgresql/data
     networks:
